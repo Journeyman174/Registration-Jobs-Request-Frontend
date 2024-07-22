@@ -20,7 +20,7 @@ import type {
   CorDTORequestResponse,
   CorUpdateDTO,
   RequestResponse,
-} from '../models/index';
+} from '../models';
 import {
     CorAddDTOFromJSON,
     CorAddDTOToJSON,
@@ -32,7 +32,7 @@ import {
     CorUpdateDTOToJSON,
     RequestResponseFromJSON,
     RequestResponseToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface ApiCorAddPostRequest {
     corAddDTO?: CorAddDTO;
@@ -83,7 +83,7 @@ export class CorApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CorAddDTOToJSON(requestParameters['corAddDTO']),
+            body: CorAddDTOToJSON(requestParameters.corAddDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -99,11 +99,8 @@ export class CorApi extends runtime.BaseAPI {
     /**
      */
     async apiCorDeleteIdDeleteRaw(requestParameters: ApiCorDeleteIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiCorDeleteIdDelete().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiCorDeleteIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -119,7 +116,7 @@ export class CorApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Cor/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Cor/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -138,11 +135,8 @@ export class CorApi extends runtime.BaseAPI {
     /**
      */
     async apiCorGetByIdIdGetRaw(requestParameters: ApiCorGetByIdIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CorDTORequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiCorGetByIdIdGet().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiCorGetByIdIdGet.');
         }
 
         const queryParameters: any = {};
@@ -158,7 +152,7 @@ export class CorApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Cor/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Cor/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -179,16 +173,16 @@ export class CorApi extends runtime.BaseAPI {
     async apiCorGetPageGetRaw(requestParameters: ApiCorGetPageGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CorDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -240,7 +234,7 @@ export class CorApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: CorUpdateDTOToJSON(requestParameters['corUpdateDTO']),
+            body: CorUpdateDTOToJSON(requestParameters.corUpdateDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));

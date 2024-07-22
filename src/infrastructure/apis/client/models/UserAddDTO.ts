@@ -49,21 +49,14 @@ export interface UserAddDTO {
      * @type {UserRoleEnum}
      * @memberof UserAddDTO
      */
-    role: UserAddDTORoleEnum;
+    role: UserRoleEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserAddDTO
+     */
+//    userId: string;
 }
-
-
-/**
- * @export
- */
-export const UserAddDTORoleEnum = {
-    Admin: 'Admin',
-    Personnel: 'Personnel',
-    Solicitant: 'Solicitant',
-    Client: 'Client'
-} as const;
-export type UserAddDTORoleEnum = typeof UserAddDTORoleEnum[keyof typeof UserAddDTORoleEnum];
-
 
 /**
  * Check if a given object implements the UserAddDTO interface.
@@ -74,6 +67,7 @@ export function instanceOfUserAddDTO(value: object): boolean {
     isInstance = isInstance && "email" in value;
     isInstance = isInstance && "password" in value;
     isInstance = isInstance && "role" in value;
+//    isInstance = isInstance && "userId" in value;
 
     return isInstance;
 }
@@ -92,6 +86,7 @@ export function UserAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'email': json['email'],
         'password': json['password'],
         'role': UserRoleEnumFromJSON(json['role']),
+//        'userId': json['userId'],
     };
 }
 
@@ -108,6 +103,7 @@ export function UserAddDTOToJSON(value?: UserAddDTO | null): any {
         'email': value.email,
         'password': value.password,
         'role': UserRoleEnumToJSON(value.role),
+//        'userId': value.userId,
     };
 }
 

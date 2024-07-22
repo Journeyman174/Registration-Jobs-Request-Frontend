@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -30,9 +30,11 @@ export interface StudiiAddDTO {
 /**
  * Check if a given object implements the StudiiAddDTO interface.
  */
-export function instanceOfStudiiAddDTO(value: object): value is StudiiAddDTO {
-    if (!('denStudii' in value) || value['denStudii'] === undefined) return false;
-    return true;
+export function instanceOfStudiiAddDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "denStudii" in value;
+
+    return isInstance;
 }
 
 export function StudiiAddDTOFromJSON(json: any): StudiiAddDTO {
@@ -40,7 +42,7 @@ export function StudiiAddDTOFromJSON(json: any): StudiiAddDTO {
 }
 
 export function StudiiAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): StudiiAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -50,12 +52,15 @@ export function StudiiAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function StudiiAddDTOToJSON(value?: StudiiAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'denStudii': value['denStudii'],
+        'denStudii': value.denStudii,
     };
 }
 

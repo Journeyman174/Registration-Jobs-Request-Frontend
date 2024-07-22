@@ -49,21 +49,8 @@ export interface UserDTO {
      * @type {UserRoleEnum}
      * @memberof UserDTO
      */
-    role: UserDTORoleEnum;
+    role: UserRoleEnum;
 }
-
-
-/**
- * @export
- */
-export const UserDTORoleEnum = {
-    Admin: 'Admin',
-    Personnel: 'Personnel',
-    Solicitant: 'Solicitant',
-    Client: 'Client'
-} as const;
-export type UserDTORoleEnum = typeof UserDTORoleEnum[keyof typeof UserDTORoleEnum];
-
 
 /**
  * Check if a given object implements the UserDTO interface.

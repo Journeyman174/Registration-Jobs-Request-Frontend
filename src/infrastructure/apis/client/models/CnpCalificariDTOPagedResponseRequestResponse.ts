@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CnpCalificariDTOPagedResponse } from './CnpCalificariDTOPagedResponse';
 import {
     CnpCalificariDTOPagedResponseFromJSON,
@@ -49,10 +49,12 @@ export interface CnpCalificariDTOPagedResponseRequestResponse {
 /**
  * Check if a given object implements the CnpCalificariDTOPagedResponseRequestResponse interface.
  */
-export function instanceOfCnpCalificariDTOPagedResponseRequestResponse(value: object): value is CnpCalificariDTOPagedResponseRequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfCnpCalificariDTOPagedResponseRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function CnpCalificariDTOPagedResponseRequestResponseFromJSON(json: any): CnpCalificariDTOPagedResponseRequestResponse {
@@ -60,7 +62,7 @@ export function CnpCalificariDTOPagedResponseRequestResponseFromJSON(json: any):
 }
 
 export function CnpCalificariDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpCalificariDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function CnpCalificariDTOPagedResponseRequestResponseFromJSONTyped(json: 
 }
 
 export function CnpCalificariDTOPagedResponseRequestResponseToJSON(value?: CnpCalificariDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': CnpCalificariDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': CnpCalificariDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

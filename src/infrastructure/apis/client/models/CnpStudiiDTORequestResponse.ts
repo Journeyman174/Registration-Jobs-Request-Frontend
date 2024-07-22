@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CnpStudiiDTO } from './CnpStudiiDTO';
 import {
     CnpStudiiDTOFromJSON,
@@ -49,10 +49,12 @@ export interface CnpStudiiDTORequestResponse {
 /**
  * Check if a given object implements the CnpStudiiDTORequestResponse interface.
  */
-export function instanceOfCnpStudiiDTORequestResponse(value: object): value is CnpStudiiDTORequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfCnpStudiiDTORequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function CnpStudiiDTORequestResponseFromJSON(json: any): CnpStudiiDTORequestResponse {
@@ -60,7 +62,7 @@ export function CnpStudiiDTORequestResponseFromJSON(json: any): CnpStudiiDTORequ
 }
 
 export function CnpStudiiDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpStudiiDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function CnpStudiiDTORequestResponseFromJSONTyped(json: any, ignoreDiscri
 }
 
 export function CnpStudiiDTORequestResponseToJSON(value?: CnpStudiiDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': CnpStudiiDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': CnpStudiiDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

@@ -15,27 +15,27 @@
 
 import * as runtime from '../runtime';
 import type {
-  ApiUserAddPostRequest,
-  ApiUserUpdatePutRequest,
   RequestResponse,
+  UserAddDTO,
   UserDTOPagedResponseRequestResponse,
   UserDTORequestResponse,
+  UserUpdateDTO,
 } from '../models';
 import {
-    ApiUserAddPostRequestFromJSON,
-    ApiUserAddPostRequestToJSON,
-    ApiUserUpdatePutRequestFromJSON,
-    ApiUserUpdatePutRequestToJSON,
     RequestResponseFromJSON,
     RequestResponseToJSON,
+    UserAddDTOFromJSON,
+    UserAddDTOToJSON,
     UserDTOPagedResponseRequestResponseFromJSON,
     UserDTOPagedResponseRequestResponseToJSON,
     UserDTORequestResponseFromJSON,
     UserDTORequestResponseToJSON,
+    UserUpdateDTOFromJSON,
+    UserUpdateDTOToJSON,
 } from '../models';
 
-export interface ApiUserAddPostOperationRequest {
-    apiUserAddPostRequest?: ApiUserAddPostRequest;
+export interface ApiUserAddPostRequest {
+    userAddDTO?: UserAddDTO;
 }
 
 export interface ApiUserDeleteIdDeleteRequest {
@@ -52,8 +52,8 @@ export interface ApiUserGetPageGetRequest {
     pageSize?: number;
 }
 
-export interface ApiUserUpdatePutOperationRequest {
-    apiUserUpdatePutRequest?: ApiUserUpdatePutRequest;
+export interface ApiUserUpdatePutRequest {
+    userUpdateDTO?: UserUpdateDTO;
 }
 
 /**
@@ -63,7 +63,7 @@ export class UserApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiUserAddPostRaw(requestParameters: ApiUserAddPostOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
+    async apiUserAddPostRaw(requestParameters: ApiUserAddPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -83,7 +83,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ApiUserAddPostRequestToJSON(requestParameters.apiUserAddPostRequest),
+            body: UserAddDTOToJSON(requestParameters.userAddDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -91,7 +91,7 @@ export class UserApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiUserAddPost(requestParameters: ApiUserAddPostOperationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestResponse> {
+    async apiUserAddPost(requestParameters: ApiUserAddPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestResponse> {
         const response = await this.apiUserAddPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -214,7 +214,7 @@ export class UserApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiUserUpdatePutRaw(requestParameters: ApiUserUpdatePutOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
+    async apiUserUpdatePutRaw(requestParameters: ApiUserUpdatePutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -234,7 +234,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ApiUserUpdatePutRequestToJSON(requestParameters.apiUserUpdatePutRequest),
+            body: UserUpdateDTOToJSON(requestParameters.userUpdateDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -242,7 +242,7 @@ export class UserApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiUserUpdatePut(requestParameters: ApiUserUpdatePutOperationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestResponse> {
+    async apiUserUpdatePut(requestParameters: ApiUserUpdatePutRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestResponse> {
         const response = await this.apiUserUpdatePutRaw(requestParameters, initOverrides);
         return await response.value();
     }

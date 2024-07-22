@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { RepartitiiDTO } from './RepartitiiDTO';
 import {
     RepartitiiDTOFromJSON,
@@ -55,12 +55,14 @@ export interface RepartitiiDTOPagedResponse {
 /**
  * Check if a given object implements the RepartitiiDTOPagedResponse interface.
  */
-export function instanceOfRepartitiiDTOPagedResponse(value: object): value is RepartitiiDTOPagedResponse {
-    if (!('page' in value) || value['page'] === undefined) return false;
-    if (!('pageSize' in value) || value['pageSize'] === undefined) return false;
-    if (!('totalCount' in value) || value['totalCount'] === undefined) return false;
-    if (!('data' in value) || value['data'] === undefined) return false;
-    return true;
+export function instanceOfRepartitiiDTOPagedResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "page" in value;
+    isInstance = isInstance && "pageSize" in value;
+    isInstance = isInstance && "totalCount" in value;
+    isInstance = isInstance && "data" in value;
+
+    return isInstance;
 }
 
 export function RepartitiiDTOPagedResponseFromJSON(json: any): RepartitiiDTOPagedResponse {
@@ -68,7 +70,7 @@ export function RepartitiiDTOPagedResponseFromJSON(json: any): RepartitiiDTOPage
 }
 
 export function RepartitiiDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): RepartitiiDTOPagedResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -81,15 +83,18 @@ export function RepartitiiDTOPagedResponseFromJSONTyped(json: any, ignoreDiscrim
 }
 
 export function RepartitiiDTOPagedResponseToJSON(value?: RepartitiiDTOPagedResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'page': value['page'],
-        'pageSize': value['pageSize'],
-        'totalCount': value['totalCount'],
-        'data': ((value['data'] as Array<any>).map(RepartitiiDTOToJSON)),
+        'page': value.page,
+        'pageSize': value.pageSize,
+        'totalCount': value.totalCount,
+        'data': ((value.data as Array<any>).map(RepartitiiDTOToJSON)),
     };
 }
 

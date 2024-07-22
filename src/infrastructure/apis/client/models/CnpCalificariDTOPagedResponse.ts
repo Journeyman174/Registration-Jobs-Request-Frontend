@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CnpCalificariDTO } from './CnpCalificariDTO';
 import {
     CnpCalificariDTOFromJSON,
@@ -55,12 +55,14 @@ export interface CnpCalificariDTOPagedResponse {
 /**
  * Check if a given object implements the CnpCalificariDTOPagedResponse interface.
  */
-export function instanceOfCnpCalificariDTOPagedResponse(value: object): value is CnpCalificariDTOPagedResponse {
-    if (!('page' in value) || value['page'] === undefined) return false;
-    if (!('pageSize' in value) || value['pageSize'] === undefined) return false;
-    if (!('totalCount' in value) || value['totalCount'] === undefined) return false;
-    if (!('data' in value) || value['data'] === undefined) return false;
-    return true;
+export function instanceOfCnpCalificariDTOPagedResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "page" in value;
+    isInstance = isInstance && "pageSize" in value;
+    isInstance = isInstance && "totalCount" in value;
+    isInstance = isInstance && "data" in value;
+
+    return isInstance;
 }
 
 export function CnpCalificariDTOPagedResponseFromJSON(json: any): CnpCalificariDTOPagedResponse {
@@ -68,7 +70,7 @@ export function CnpCalificariDTOPagedResponseFromJSON(json: any): CnpCalificariD
 }
 
 export function CnpCalificariDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpCalificariDTOPagedResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -81,15 +83,18 @@ export function CnpCalificariDTOPagedResponseFromJSONTyped(json: any, ignoreDisc
 }
 
 export function CnpCalificariDTOPagedResponseToJSON(value?: CnpCalificariDTOPagedResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'page': value['page'],
-        'pageSize': value['pageSize'],
-        'totalCount': value['totalCount'],
-        'data': ((value['data'] as Array<any>).map(CnpCalificariDTOToJSON)),
+        'page': value.page,
+        'pageSize': value.pageSize,
+        'totalCount': value.totalCount,
+        'data': ((value.data as Array<any>).map(CnpCalificariDTOToJSON)),
     };
 }
 

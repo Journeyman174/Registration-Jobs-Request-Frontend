@@ -19,7 +19,7 @@ import type {
   DosarRepartitiiDTOPagedResponseRequestResponse,
   DosarRepartitiiDTORequestResponse,
   RequestResponse,
-} from '../models/index';
+} from '../models';
 import {
     DosarRepartitiiAddDTOFromJSON,
     DosarRepartitiiAddDTOToJSON,
@@ -29,7 +29,7 @@ import {
     DosarRepartitiiDTORequestResponseToJSON,
     RequestResponseFromJSON,
     RequestResponseToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface ApiDosarRepartitiiCancelIdDeleteRequest {
     id: string;
@@ -57,11 +57,8 @@ export class DosarRepartitiiApi extends runtime.BaseAPI {
     /**
      */
     async apiDosarRepartitiiCancelIdDeleteRaw(requestParameters: ApiDosarRepartitiiCancelIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiDosarRepartitiiCancelIdDelete().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiDosarRepartitiiCancelIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -77,7 +74,7 @@ export class DosarRepartitiiApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/DosarRepartitii/Cancel/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/DosarRepartitii/Cancel/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -115,7 +112,7 @@ export class DosarRepartitiiApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: DosarRepartitiiAddDTOToJSON(requestParameters['dosarRepartitiiAddDTO']),
+            body: DosarRepartitiiAddDTOToJSON(requestParameters.dosarRepartitiiAddDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -131,11 +128,8 @@ export class DosarRepartitiiApi extends runtime.BaseAPI {
     /**
      */
     async apiDosarRepartitiiGetByIdIdGetRaw(requestParameters: ApiDosarRepartitiiGetByIdIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DosarRepartitiiDTORequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiDosarRepartitiiGetByIdIdGet().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiDosarRepartitiiGetByIdIdGet.');
         }
 
         const queryParameters: any = {};
@@ -151,7 +145,7 @@ export class DosarRepartitiiApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/DosarRepartitii/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/DosarRepartitii/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -172,16 +166,16 @@ export class DosarRepartitiiApi extends runtime.BaseAPI {
     async apiDosarRepartitiiGetFromUserIdGetRaw(requestParameters: ApiDosarRepartitiiGetFromUserIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DosarRepartitiiDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -66,14 +66,16 @@ export interface SolicitantiDTO {
 /**
  * Check if a given object implements the SolicitantiDTO interface.
  */
-export function instanceOfSolicitantiDTO(value: object): value is SolicitantiDTO {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('dataInregistare' in value) || value['dataInregistare'] === undefined) return false;
-    if (!('cnpSolicitant' in value) || value['cnpSolicitant'] === undefined) return false;
-    if (!('nume' in value) || value['nume'] === undefined) return false;
-    if (!('prenume' in value) || value['prenume'] === undefined) return false;
-    if (!('userId' in value) || value['userId'] === undefined) return false;
-    return true;
+export function instanceOfSolicitantiDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "dataInregistare" in value;
+    isInstance = isInstance && "cnpSolicitant" in value;
+    isInstance = isInstance && "nume" in value;
+    isInstance = isInstance && "prenume" in value;
+    isInstance = isInstance && "userId" in value;
+
+    return isInstance;
 }
 
 export function SolicitantiDTOFromJSON(json: any): SolicitantiDTO {
@@ -81,7 +83,7 @@ export function SolicitantiDTOFromJSON(json: any): SolicitantiDTO {
 }
 
 export function SolicitantiDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): SolicitantiDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -91,24 +93,27 @@ export function SolicitantiDTOFromJSONTyped(json: any, ignoreDiscriminator: bool
         'cnpSolicitant': json['cnpSolicitant'],
         'nume': json['nume'],
         'prenume': json['prenume'],
-        'adresa': json['adresa'] == null ? undefined : json['adresa'],
+        'adresa': !exists(json, 'adresa') ? undefined : json['adresa'],
         'userId': json['userId'],
     };
 }
 
 export function SolicitantiDTOToJSON(value?: SolicitantiDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'dataInregistare': ((value['dataInregistare']).toISOString()),
-        'cnpSolicitant': value['cnpSolicitant'],
-        'nume': value['nume'],
-        'prenume': value['prenume'],
-        'adresa': value['adresa'],
-        'userId': value['userId'],
+        'id': value.id,
+        'dataInregistare': (value.dataInregistare.toISOString()),
+        'cnpSolicitant': value.cnpSolicitant,
+        'nume': value.nume,
+        'prenume': value.prenume,
+        'adresa': value.adresa,
+        'userId': value.userId,
     };
 }
 

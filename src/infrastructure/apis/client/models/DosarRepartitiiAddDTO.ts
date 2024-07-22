@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,12 @@ export interface DosarRepartitiiAddDTO {
 /**
  * Check if a given object implements the DosarRepartitiiAddDTO interface.
  */
-export function instanceOfDosarRepartitiiAddDTO(value: object): value is DosarRepartitiiAddDTO {
-    if (!('idDosar' in value) || value['idDosar'] === undefined) return false;
-    if (!('idRepartitie' in value) || value['idRepartitie'] === undefined) return false;
-    return true;
+export function instanceOfDosarRepartitiiAddDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "idDosar" in value;
+    isInstance = isInstance && "idRepartitie" in value;
+
+    return isInstance;
 }
 
 export function DosarRepartitiiAddDTOFromJSON(json: any): DosarRepartitiiAddDTO {
@@ -47,7 +49,7 @@ export function DosarRepartitiiAddDTOFromJSON(json: any): DosarRepartitiiAddDTO 
 }
 
 export function DosarRepartitiiAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): DosarRepartitiiAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -58,13 +60,16 @@ export function DosarRepartitiiAddDTOFromJSONTyped(json: any, ignoreDiscriminato
 }
 
 export function DosarRepartitiiAddDTOToJSON(value?: DosarRepartitiiAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'idDosar': value['idDosar'],
-        'idRepartitie': value['idRepartitie'],
+        'idDosar': value.idDosar,
+        'idRepartitie': value.idRepartitie,
     };
 }
 

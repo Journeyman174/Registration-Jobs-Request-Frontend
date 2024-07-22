@@ -15,6 +15,7 @@ export const HomePage = memo(() => {
         <Box sx={{ padding: "0px 50px 00px 50px", justifyItems: "center" }}>
           <ContentCard title={formatMessage({ id: "globals.welcome" })}>
             <Typography>
+              
             </Typography>
           </ContentCard>
         </Box>

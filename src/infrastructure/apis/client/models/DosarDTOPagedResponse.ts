@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DosarDTO } from './DosarDTO';
 import {
     DosarDTOFromJSON,
@@ -55,12 +55,14 @@ export interface DosarDTOPagedResponse {
 /**
  * Check if a given object implements the DosarDTOPagedResponse interface.
  */
-export function instanceOfDosarDTOPagedResponse(value: object): value is DosarDTOPagedResponse {
-    if (!('page' in value) || value['page'] === undefined) return false;
-    if (!('pageSize' in value) || value['pageSize'] === undefined) return false;
-    if (!('totalCount' in value) || value['totalCount'] === undefined) return false;
-    if (!('data' in value) || value['data'] === undefined) return false;
-    return true;
+export function instanceOfDosarDTOPagedResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "page" in value;
+    isInstance = isInstance && "pageSize" in value;
+    isInstance = isInstance && "totalCount" in value;
+    isInstance = isInstance && "data" in value;
+
+    return isInstance;
 }
 
 export function DosarDTOPagedResponseFromJSON(json: any): DosarDTOPagedResponse {
@@ -68,7 +70,7 @@ export function DosarDTOPagedResponseFromJSON(json: any): DosarDTOPagedResponse 
 }
 
 export function DosarDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DosarDTOPagedResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -81,15 +83,18 @@ export function DosarDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminato
 }
 
 export function DosarDTOPagedResponseToJSON(value?: DosarDTOPagedResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'page': value['page'],
-        'pageSize': value['pageSize'],
-        'totalCount': value['totalCount'],
-        'data': ((value['data'] as Array<any>).map(DosarDTOToJSON)),
+        'page': value.page,
+        'pageSize': value.pageSize,
+        'totalCount': value.totalCount,
+        'data': ((value.data as Array<any>).map(DosarDTOToJSON)),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -48,12 +48,14 @@ export interface CnpCalificariDTO {
 /**
  * Check if a given object implements the CnpCalificariDTO interface.
  */
-export function instanceOfCnpCalificariDTO(value: object): value is CnpCalificariDTO {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('idSolicitant' in value) || value['idSolicitant'] === undefined) return false;
-    if (!('cnpSolicitant' in value) || value['cnpSolicitant'] === undefined) return false;
-    if (!('idCor' in value) || value['idCor'] === undefined) return false;
-    return true;
+export function instanceOfCnpCalificariDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "idSolicitant" in value;
+    isInstance = isInstance && "cnpSolicitant" in value;
+    isInstance = isInstance && "idCor" in value;
+
+    return isInstance;
 }
 
 export function CnpCalificariDTOFromJSON(json: any): CnpCalificariDTO {
@@ -61,7 +63,7 @@ export function CnpCalificariDTOFromJSON(json: any): CnpCalificariDTO {
 }
 
 export function CnpCalificariDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpCalificariDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -74,15 +76,18 @@ export function CnpCalificariDTOFromJSONTyped(json: any, ignoreDiscriminator: bo
 }
 
 export function CnpCalificariDTOToJSON(value?: CnpCalificariDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'idSolicitant': value['idSolicitant'],
-        'cnpSolicitant': value['cnpSolicitant'],
-        'idCor': value['idCor'],
+        'id': value.id,
+        'idSolicitant': value.idSolicitant,
+        'cnpSolicitant': value.cnpSolicitant,
+        'idCor': value.idCor,
     };
 }
 

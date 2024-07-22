@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CorDTOPagedResponse } from './CorDTOPagedResponse';
 import {
     CorDTOPagedResponseFromJSON,
@@ -49,10 +49,12 @@ export interface CorDTOPagedResponseRequestResponse {
 /**
  * Check if a given object implements the CorDTOPagedResponseRequestResponse interface.
  */
-export function instanceOfCorDTOPagedResponseRequestResponse(value: object): value is CorDTOPagedResponseRequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfCorDTOPagedResponseRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function CorDTOPagedResponseRequestResponseFromJSON(json: any): CorDTOPagedResponseRequestResponse {
@@ -60,7 +62,7 @@ export function CorDTOPagedResponseRequestResponseFromJSON(json: any): CorDTOPag
 }
 
 export function CorDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CorDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function CorDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignor
 }
 
 export function CorDTOPagedResponseRequestResponseToJSON(value?: CorDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': CorDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': CorDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

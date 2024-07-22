@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -54,12 +54,14 @@ export interface SolicitantiUpdateDTO {
 /**
  * Check if a given object implements the SolicitantiUpdateDTO interface.
  */
-export function instanceOfSolicitantiUpdateDTO(value: object): value is SolicitantiUpdateDTO {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('dataInregistare' in value) || value['dataInregistare'] === undefined) return false;
-    if (!('nume' in value) || value['nume'] === undefined) return false;
-    if (!('prenume' in value) || value['prenume'] === undefined) return false;
-    return true;
+export function instanceOfSolicitantiUpdateDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "dataInregistare" in value;
+    isInstance = isInstance && "nume" in value;
+    isInstance = isInstance && "prenume" in value;
+
+    return isInstance;
 }
 
 export function SolicitantiUpdateDTOFromJSON(json: any): SolicitantiUpdateDTO {
@@ -67,7 +69,7 @@ export function SolicitantiUpdateDTOFromJSON(json: any): SolicitantiUpdateDTO {
 }
 
 export function SolicitantiUpdateDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): SolicitantiUpdateDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -76,21 +78,24 @@ export function SolicitantiUpdateDTOFromJSONTyped(json: any, ignoreDiscriminator
         'dataInregistare': (new Date(json['dataInregistare'])),
         'nume': json['nume'],
         'prenume': json['prenume'],
-        'adresa': json['adresa'] == null ? undefined : json['adresa'],
+        'adresa': !exists(json, 'adresa') ? undefined : json['adresa'],
     };
 }
 
 export function SolicitantiUpdateDTOToJSON(value?: SolicitantiUpdateDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'dataInregistare': ((value['dataInregistare']).toISOString()),
-        'nume': value['nume'],
-        'prenume': value['prenume'],
-        'adresa': value['adresa'],
+        'id': value.id,
+        'dataInregistare': (value.dataInregistare.toISOString()),
+        'nume': value.nume,
+        'prenume': value.prenume,
+        'adresa': value.adresa,
     };
 }
 

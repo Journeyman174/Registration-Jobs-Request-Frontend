@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,12 @@ export interface CorAddDTO {
 /**
  * Check if a given object implements the CorAddDTO interface.
  */
-export function instanceOfCorAddDTO(value: object): value is CorAddDTO {
-    if (!('codCor' in value) || value['codCor'] === undefined) return false;
-    if (!('meserie' in value) || value['meserie'] === undefined) return false;
-    return true;
+export function instanceOfCorAddDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "codCor" in value;
+    isInstance = isInstance && "meserie" in value;
+
+    return isInstance;
 }
 
 export function CorAddDTOFromJSON(json: any): CorAddDTO {
@@ -47,7 +49,7 @@ export function CorAddDTOFromJSON(json: any): CorAddDTO {
 }
 
 export function CorAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): CorAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -58,13 +60,16 @@ export function CorAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean):
 }
 
 export function CorAddDTOToJSON(value?: CorAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'codCor': value['codCor'],
-        'meserie': value['meserie'],
+        'codCor': value.codCor,
+        'meserie': value.meserie,
     };
 }
 

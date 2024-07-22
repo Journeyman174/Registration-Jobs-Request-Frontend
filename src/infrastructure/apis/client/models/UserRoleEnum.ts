@@ -20,8 +20,8 @@
 export const UserRoleEnum = {
     Admin: 'Admin',
     Personnel: 'Personnel',
-    Solicitant: 'Solicitant',
-    Client: 'Client'
+    Client: 'Client',
+    Solicitant: 'Solicitant'
 } as const;
 export type UserRoleEnum = typeof UserRoleEnum[keyof typeof UserRoleEnum];
 

@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolicitantiDTO } from './SolicitantiDTO';
-import {
-    SolicitantiDTOFromJSON,
-    SolicitantiDTOFromJSONTyped,
-    SolicitantiDTOToJSON,
-} from './SolicitantiDTO';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
     ErrorMessageFromJSONTyped,
     ErrorMessageToJSON,
 } from './ErrorMessage';
+import type { SolicitantiDTO } from './SolicitantiDTO';
+import {
+    SolicitantiDTOFromJSON,
+    SolicitantiDTOFromJSONTyped,
+    SolicitantiDTOToJSON,
+} from './SolicitantiDTO';
 
 /**
  * 
@@ -49,10 +49,12 @@ export interface SolicitantiDTORequestResponse {
 /**
  * Check if a given object implements the SolicitantiDTORequestResponse interface.
  */
-export function instanceOfSolicitantiDTORequestResponse(value: object): value is SolicitantiDTORequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfSolicitantiDTORequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function SolicitantiDTORequestResponseFromJSON(json: any): SolicitantiDTORequestResponse {
@@ -60,7 +62,7 @@ export function SolicitantiDTORequestResponseFromJSON(json: any): SolicitantiDTO
 }
 
 export function SolicitantiDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): SolicitantiDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function SolicitantiDTORequestResponseFromJSONTyped(json: any, ignoreDisc
 }
 
 export function SolicitantiDTORequestResponseToJSON(value?: SolicitantiDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': SolicitantiDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': SolicitantiDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

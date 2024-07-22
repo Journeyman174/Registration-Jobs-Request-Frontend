@@ -24,17 +24,6 @@ export const RezultatRepartitieEnum = {
 export type RezultatRepartitieEnum = typeof RezultatRepartitieEnum[keyof typeof RezultatRepartitieEnum];
 
 
-export function instanceOfRezultatRepartitieEnum(value: any): boolean {
-    for (const key in RezultatRepartitieEnum) {
-        if (Object.prototype.hasOwnProperty.call(RezultatRepartitieEnum, key)) {
-            if ((RezultatRepartitieEnum as Record<string, RezultatRepartitieEnum>)[key] === value) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 export function RezultatRepartitieEnumFromJSON(json: any): RezultatRepartitieEnum {
     return RezultatRepartitieEnumFromJSONTyped(json, false);
 }

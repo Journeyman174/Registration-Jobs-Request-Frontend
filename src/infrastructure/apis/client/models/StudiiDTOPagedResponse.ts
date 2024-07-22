@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { StudiiDTO } from './StudiiDTO';
 import {
     StudiiDTOFromJSON,
@@ -55,12 +55,14 @@ export interface StudiiDTOPagedResponse {
 /**
  * Check if a given object implements the StudiiDTOPagedResponse interface.
  */
-export function instanceOfStudiiDTOPagedResponse(value: object): value is StudiiDTOPagedResponse {
-    if (!('page' in value) || value['page'] === undefined) return false;
-    if (!('pageSize' in value) || value['pageSize'] === undefined) return false;
-    if (!('totalCount' in value) || value['totalCount'] === undefined) return false;
-    if (!('data' in value) || value['data'] === undefined) return false;
-    return true;
+export function instanceOfStudiiDTOPagedResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "page" in value;
+    isInstance = isInstance && "pageSize" in value;
+    isInstance = isInstance && "totalCount" in value;
+    isInstance = isInstance && "data" in value;
+
+    return isInstance;
 }
 
 export function StudiiDTOPagedResponseFromJSON(json: any): StudiiDTOPagedResponse {
@@ -68,7 +70,7 @@ export function StudiiDTOPagedResponseFromJSON(json: any): StudiiDTOPagedRespons
 }
 
 export function StudiiDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): StudiiDTOPagedResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -81,15 +83,18 @@ export function StudiiDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminat
 }
 
 export function StudiiDTOPagedResponseToJSON(value?: StudiiDTOPagedResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'page': value['page'],
-        'pageSize': value['pageSize'],
-        'totalCount': value['totalCount'],
-        'data': ((value['data'] as Array<any>).map(StudiiDTOToJSON)),
+        'page': value.page,
+        'pageSize': value.pageSize,
+        'totalCount': value.totalCount,
+        'data': ((value.data as Array<any>).map(StudiiDTOToJSON)),
     };
 }
 

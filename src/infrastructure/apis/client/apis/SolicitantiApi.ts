@@ -20,7 +20,7 @@ import type {
   SolicitantiDTOPagedResponseRequestResponse,
   SolicitantiDTORequestResponse,
   SolicitantiUpdateDTO,
-} from '../models/index';
+} from '../models';
 import {
     RequestResponseFromJSON,
     RequestResponseToJSON,
@@ -32,7 +32,7 @@ import {
     SolicitantiDTORequestResponseToJSON,
     SolicitantiUpdateDTOFromJSON,
     SolicitantiUpdateDTOToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface ApiSolicitantiAddPostRequest {
     solicitantiAddDTO?: SolicitantiAddDTO;
@@ -83,7 +83,7 @@ export class SolicitantiApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SolicitantiAddDTOToJSON(requestParameters['solicitantiAddDTO']),
+            body: SolicitantiAddDTOToJSON(requestParameters.solicitantiAddDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -99,11 +99,8 @@ export class SolicitantiApi extends runtime.BaseAPI {
     /**
      */
     async apiSolicitantiDeleteIdDeleteRaw(requestParameters: ApiSolicitantiDeleteIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiSolicitantiDeleteIdDelete().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiSolicitantiDeleteIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -119,7 +116,7 @@ export class SolicitantiApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Solicitanti/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Solicitanti/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -138,11 +135,8 @@ export class SolicitantiApi extends runtime.BaseAPI {
     /**
      */
     async apiSolicitantiGetByIdIdGetRaw(requestParameters: ApiSolicitantiGetByIdIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolicitantiDTORequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiSolicitantiGetByIdIdGet().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiSolicitantiGetByIdIdGet.');
         }
 
         const queryParameters: any = {};
@@ -158,7 +152,7 @@ export class SolicitantiApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Solicitanti/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Solicitanti/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -179,16 +173,16 @@ export class SolicitantiApi extends runtime.BaseAPI {
     async apiSolicitantiGetPageGetRaw(requestParameters: ApiSolicitantiGetPageGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolicitantiDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -240,7 +234,7 @@ export class SolicitantiApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: SolicitantiUpdateDTOToJSON(requestParameters['solicitantiUpdateDTO']),
+            body: SolicitantiUpdateDTOToJSON(requestParameters.solicitantiUpdateDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));

@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { OlmDTOPagedResponse } from './OlmDTOPagedResponse';
-import {
-    OlmDTOPagedResponseFromJSON,
-    OlmDTOPagedResponseFromJSONTyped,
-    OlmDTOPagedResponseToJSON,
-} from './OlmDTOPagedResponse';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
     ErrorMessageFromJSONTyped,
     ErrorMessageToJSON,
 } from './ErrorMessage';
+import type { OlmDTOPagedResponse } from './OlmDTOPagedResponse';
+import {
+    OlmDTOPagedResponseFromJSON,
+    OlmDTOPagedResponseFromJSONTyped,
+    OlmDTOPagedResponseToJSON,
+} from './OlmDTOPagedResponse';
 
 /**
  * 
@@ -49,10 +49,12 @@ export interface OlmDTOPagedResponseRequestResponse {
 /**
  * Check if a given object implements the OlmDTOPagedResponseRequestResponse interface.
  */
-export function instanceOfOlmDTOPagedResponseRequestResponse(value: object): value is OlmDTOPagedResponseRequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfOlmDTOPagedResponseRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function OlmDTOPagedResponseRequestResponseFromJSON(json: any): OlmDTOPagedResponseRequestResponse {
@@ -60,7 +62,7 @@ export function OlmDTOPagedResponseRequestResponseFromJSON(json: any): OlmDTOPag
 }
 
 export function OlmDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): OlmDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function OlmDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignor
 }
 
 export function OlmDTOPagedResponseRequestResponseToJSON(value?: OlmDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': OlmDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': OlmDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

@@ -19,7 +19,7 @@ import type {
   CnpStudiiDTOPagedResponseRequestResponse,
   CnpStudiiDTORequestResponse,
   RequestResponse,
-} from '../models/index';
+} from '../models';
 import {
     CnpStudiiAddDTOFromJSON,
     CnpStudiiAddDTOToJSON,
@@ -29,7 +29,7 @@ import {
     CnpStudiiDTORequestResponseToJSON,
     RequestResponseFromJSON,
     RequestResponseToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface ApiCnpStudiiCancelIdDeleteRequest {
     id: string;
@@ -57,11 +57,8 @@ export class CnpStudiiApi extends runtime.BaseAPI {
     /**
      */
     async apiCnpStudiiCancelIdDeleteRaw(requestParameters: ApiCnpStudiiCancelIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiCnpStudiiCancelIdDelete().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiCnpStudiiCancelIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -77,7 +74,7 @@ export class CnpStudiiApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/CnpStudii/Cancel/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/CnpStudii/Cancel/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -115,7 +112,7 @@ export class CnpStudiiApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CnpStudiiAddDTOToJSON(requestParameters['cnpStudiiAddDTO']),
+            body: CnpStudiiAddDTOToJSON(requestParameters.cnpStudiiAddDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -131,11 +128,8 @@ export class CnpStudiiApi extends runtime.BaseAPI {
     /**
      */
     async apiCnpStudiiGetByIdIdGetRaw(requestParameters: ApiCnpStudiiGetByIdIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CnpStudiiDTORequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiCnpStudiiGetByIdIdGet().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiCnpStudiiGetByIdIdGet.');
         }
 
         const queryParameters: any = {};
@@ -151,7 +145,7 @@ export class CnpStudiiApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/CnpStudii/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/CnpStudii/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -172,16 +166,16 @@ export class CnpStudiiApi extends runtime.BaseAPI {
     async apiCnpStudiiGetFromUserIdGetRaw(requestParameters: ApiCnpStudiiGetFromUserIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CnpStudiiDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

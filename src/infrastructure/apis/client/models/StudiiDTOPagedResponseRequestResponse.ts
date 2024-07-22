@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { StudiiDTOPagedResponse } from './StudiiDTOPagedResponse';
-import {
-    StudiiDTOPagedResponseFromJSON,
-    StudiiDTOPagedResponseFromJSONTyped,
-    StudiiDTOPagedResponseToJSON,
-} from './StudiiDTOPagedResponse';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
     ErrorMessageFromJSONTyped,
     ErrorMessageToJSON,
 } from './ErrorMessage';
+import type { StudiiDTOPagedResponse } from './StudiiDTOPagedResponse';
+import {
+    StudiiDTOPagedResponseFromJSON,
+    StudiiDTOPagedResponseFromJSONTyped,
+    StudiiDTOPagedResponseToJSON,
+} from './StudiiDTOPagedResponse';
 
 /**
  * 
@@ -49,10 +49,12 @@ export interface StudiiDTOPagedResponseRequestResponse {
 /**
  * Check if a given object implements the StudiiDTOPagedResponseRequestResponse interface.
  */
-export function instanceOfStudiiDTOPagedResponseRequestResponse(value: object): value is StudiiDTOPagedResponseRequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfStudiiDTOPagedResponseRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function StudiiDTOPagedResponseRequestResponseFromJSON(json: any): StudiiDTOPagedResponseRequestResponse {
@@ -60,7 +62,7 @@ export function StudiiDTOPagedResponseRequestResponseFromJSON(json: any): Studii
 }
 
 export function StudiiDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): StudiiDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function StudiiDTOPagedResponseRequestResponseFromJSONTyped(json: any, ig
 }
 
 export function StudiiDTOPagedResponseRequestResponseToJSON(value?: StudiiDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': StudiiDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': StudiiDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

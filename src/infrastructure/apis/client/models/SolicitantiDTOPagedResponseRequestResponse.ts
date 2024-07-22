@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolicitantiDTOPagedResponse } from './SolicitantiDTOPagedResponse';
-import {
-    SolicitantiDTOPagedResponseFromJSON,
-    SolicitantiDTOPagedResponseFromJSONTyped,
-    SolicitantiDTOPagedResponseToJSON,
-} from './SolicitantiDTOPagedResponse';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
     ErrorMessageFromJSONTyped,
     ErrorMessageToJSON,
 } from './ErrorMessage';
+import type { SolicitantiDTOPagedResponse } from './SolicitantiDTOPagedResponse';
+import {
+    SolicitantiDTOPagedResponseFromJSON,
+    SolicitantiDTOPagedResponseFromJSONTyped,
+    SolicitantiDTOPagedResponseToJSON,
+} from './SolicitantiDTOPagedResponse';
 
 /**
  * 
@@ -49,10 +49,12 @@ export interface SolicitantiDTOPagedResponseRequestResponse {
 /**
  * Check if a given object implements the SolicitantiDTOPagedResponseRequestResponse interface.
  */
-export function instanceOfSolicitantiDTOPagedResponseRequestResponse(value: object): value is SolicitantiDTOPagedResponseRequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfSolicitantiDTOPagedResponseRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function SolicitantiDTOPagedResponseRequestResponseFromJSON(json: any): SolicitantiDTOPagedResponseRequestResponse {
@@ -60,7 +62,7 @@ export function SolicitantiDTOPagedResponseRequestResponseFromJSON(json: any): S
 }
 
 export function SolicitantiDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): SolicitantiDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function SolicitantiDTOPagedResponseRequestResponseFromJSONTyped(json: an
 }
 
 export function SolicitantiDTOPagedResponseRequestResponseToJSON(value?: SolicitantiDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': SolicitantiDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': SolicitantiDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -48,12 +48,14 @@ export interface CnpStudiiDTO {
 /**
  * Check if a given object implements the CnpStudiiDTO interface.
  */
-export function instanceOfCnpStudiiDTO(value: object): value is CnpStudiiDTO {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('idSolicitant' in value) || value['idSolicitant'] === undefined) return false;
-    if (!('cnpSolicitant' in value) || value['cnpSolicitant'] === undefined) return false;
-    if (!('idStudii' in value) || value['idStudii'] === undefined) return false;
-    return true;
+export function instanceOfCnpStudiiDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "idSolicitant" in value;
+    isInstance = isInstance && "cnpSolicitant" in value;
+    isInstance = isInstance && "idStudii" in value;
+
+    return isInstance;
 }
 
 export function CnpStudiiDTOFromJSON(json: any): CnpStudiiDTO {
@@ -61,7 +63,7 @@ export function CnpStudiiDTOFromJSON(json: any): CnpStudiiDTO {
 }
 
 export function CnpStudiiDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpStudiiDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -74,15 +76,18 @@ export function CnpStudiiDTOFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function CnpStudiiDTOToJSON(value?: CnpStudiiDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'idSolicitant': value['idSolicitant'],
-        'cnpSolicitant': value['cnpSolicitant'],
-        'idStudii': value['idStudii'],
+        'id': value.id,
+        'idSolicitant': value.idSolicitant,
+        'cnpSolicitant': value.cnpSolicitant,
+        'idStudii': value.idStudii,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { RezultatRepartitieEnum } from './RezultatRepartitieEnum';
 import {
     RezultatRepartitieEnumFromJSON,
@@ -61,12 +61,14 @@ export interface RepartitiiAddDTO {
 /**
  * Check if a given object implements the RepartitiiAddDTO interface.
  */
-export function instanceOfRepartitiiAddDTO(value: object): value is RepartitiiAddDTO {
-    if (!('dataRepartitie' in value) || value['dataRepartitie'] === undefined) return false;
-    if (!('idOlm' in value) || value['idOlm'] === undefined) return false;
-    if (!('rezultat' in value) || value['rezultat'] === undefined) return false;
-    if (!('userId' in value) || value['userId'] === undefined) return false;
-    return true;
+export function instanceOfRepartitiiAddDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "dataRepartitie" in value;
+    isInstance = isInstance && "idOlm" in value;
+    isInstance = isInstance && "rezultat" in value;
+    isInstance = isInstance && "userId" in value;
+
+    return isInstance;
 }
 
 export function RepartitiiAddDTOFromJSON(json: any): RepartitiiAddDTO {
@@ -74,12 +76,12 @@ export function RepartitiiAddDTOFromJSON(json: any): RepartitiiAddDTO {
 }
 
 export function RepartitiiAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): RepartitiiAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'cnp': json['cnp'] == null ? undefined : json['cnp'],
+        'cnp': !exists(json, 'cnp') ? undefined : json['cnp'],
         'dataRepartitie': (new Date(json['dataRepartitie'])),
         'idOlm': json['idOlm'],
         'rezultat': RezultatRepartitieEnumFromJSON(json['rezultat']),
@@ -88,16 +90,19 @@ export function RepartitiiAddDTOFromJSONTyped(json: any, ignoreDiscriminator: bo
 }
 
 export function RepartitiiAddDTOToJSON(value?: RepartitiiAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'cnp': value['cnp'],
-        'dataRepartitie': ((value['dataRepartitie']).toISOString()),
-        'idOlm': value['idOlm'],
-        'rezultat': RezultatRepartitieEnumToJSON(value['rezultat']),
-        'userId': value['userId'],
+        'cnp': value.cnp,
+        'dataRepartitie': (value.dataRepartitie.toISOString()),
+        'idOlm': value.idOlm,
+        'rezultat': RezultatRepartitieEnumToJSON(value.rezultat),
+        'userId': value.userId,
     };
 }
 

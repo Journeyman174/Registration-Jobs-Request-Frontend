@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { LoginResponseDTOUser } from './LoginResponseDTOUser';
+import type { UserDTO } from './UserDTO';
 import {
-    LoginResponseDTOUserFromJSON,
-    LoginResponseDTOUserFromJSONTyped,
-    LoginResponseDTOUserToJSON,
-} from './LoginResponseDTOUser';
+    UserDTOFromJSON,
+    UserDTOFromJSONTyped,
+    UserDTOToJSON,
+} from './UserDTO';
 
 /**
  * 
@@ -34,10 +34,10 @@ export interface LoginResponseDTO {
     token: string;
     /**
      * 
-     * @type {LoginResponseDTOUser}
+     * @type {UserDTO}
      * @memberof LoginResponseDTO
      */
-    user: LoginResponseDTOUser;
+    user: UserDTO;
 }
 
 /**
@@ -62,7 +62,7 @@ export function LoginResponseDTOFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'token': json['token'],
-        'user': LoginResponseDTOUserFromJSON(json['user']),
+        'user': UserDTOFromJSON(json['user']),
     };
 }
 
@@ -76,7 +76,7 @@ export function LoginResponseDTOToJSON(value?: LoginResponseDTO | null): any {
     return {
         
         'token': value.token,
-        'user': LoginResponseDTOUserToJSON(value.user),
+        'user': UserDTOToJSON(value.user),
     };
 }
 

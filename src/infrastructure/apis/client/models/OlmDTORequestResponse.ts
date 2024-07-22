@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
@@ -49,10 +49,12 @@ export interface OlmDTORequestResponse {
 /**
  * Check if a given object implements the OlmDTORequestResponse interface.
  */
-export function instanceOfOlmDTORequestResponse(value: object): value is OlmDTORequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfOlmDTORequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function OlmDTORequestResponseFromJSON(json: any): OlmDTORequestResponse {
@@ -60,7 +62,7 @@ export function OlmDTORequestResponseFromJSON(json: any): OlmDTORequestResponse 
 }
 
 export function OlmDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): OlmDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function OlmDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminato
 }
 
 export function OlmDTORequestResponseToJSON(value?: OlmDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': OlmDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': OlmDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

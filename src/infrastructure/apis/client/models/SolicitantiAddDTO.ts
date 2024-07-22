@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -54,12 +54,14 @@ export interface SolicitantiAddDTO {
 /**
  * Check if a given object implements the SolicitantiAddDTO interface.
  */
-export function instanceOfSolicitantiAddDTO(value: object): value is SolicitantiAddDTO {
-    if (!('dataInregistare' in value) || value['dataInregistare'] === undefined) return false;
-    if (!('cnpSolicitant' in value) || value['cnpSolicitant'] === undefined) return false;
-    if (!('nume' in value) || value['nume'] === undefined) return false;
-    if (!('prenume' in value) || value['prenume'] === undefined) return false;
-    return true;
+export function instanceOfSolicitantiAddDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "dataInregistare" in value;
+    isInstance = isInstance && "cnpSolicitant" in value;
+    isInstance = isInstance && "nume" in value;
+    isInstance = isInstance && "prenume" in value;
+
+    return isInstance;
 }
 
 export function SolicitantiAddDTOFromJSON(json: any): SolicitantiAddDTO {
@@ -67,7 +69,7 @@ export function SolicitantiAddDTOFromJSON(json: any): SolicitantiAddDTO {
 }
 
 export function SolicitantiAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): SolicitantiAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -76,21 +78,24 @@ export function SolicitantiAddDTOFromJSONTyped(json: any, ignoreDiscriminator: b
         'cnpSolicitant': json['cnpSolicitant'],
         'nume': json['nume'],
         'prenume': json['prenume'],
-        'adresa': json['adresa'] == null ? undefined : json['adresa'],
+        'adresa': !exists(json, 'adresa') ? undefined : json['adresa'],
     };
 }
 
 export function SolicitantiAddDTOToJSON(value?: SolicitantiAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'dataInregistare': ((value['dataInregistare']).toISOString()),
-        'cnpSolicitant': value['cnpSolicitant'],
-        'nume': value['nume'],
-        'prenume': value['prenume'],
-        'adresa': value['adresa'],
+        'dataInregistare': (value.dataInregistare.toISOString()),
+        'cnpSolicitant': value.cnpSolicitant,
+        'nume': value.nume,
+        'prenume': value.prenume,
+        'adresa': value.adresa,
     };
 }
 

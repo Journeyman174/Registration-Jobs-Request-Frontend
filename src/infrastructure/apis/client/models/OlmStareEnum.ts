@@ -24,17 +24,6 @@ export const OlmStareEnum = {
 export type OlmStareEnum = typeof OlmStareEnum[keyof typeof OlmStareEnum];
 
 
-export function instanceOfOlmStareEnum(value: any): boolean {
-    for (const key in OlmStareEnum) {
-        if (Object.prototype.hasOwnProperty.call(OlmStareEnum, key)) {
-            if ((OlmStareEnum as Record<string, OlmStareEnum>)[key] === value) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 export function OlmStareEnumFromJSON(json: any): OlmStareEnum {
     return OlmStareEnumFromJSONTyped(json, false);
 }

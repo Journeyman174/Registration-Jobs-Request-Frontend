@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { LoginResponseDTOUser } from './LoginResponseDTOUser';
+import type { UserDTO } from './UserDTO';
 import {
-    LoginResponseDTOUserFromJSON,
-    LoginResponseDTOUserFromJSONTyped,
-    LoginResponseDTOUserToJSON,
-} from './LoginResponseDTOUser';
+    UserDTOFromJSON,
+    UserDTOFromJSONTyped,
+    UserDTOToJSON,
+} from './UserDTO';
 
 /**
  * 
@@ -46,10 +46,10 @@ export interface UserFileDTO {
     description?: string | null;
     /**
      * 
-     * @type {LoginResponseDTOUser}
+     * @type {UserDTO}
      * @memberof UserFileDTO
      */
-    user: LoginResponseDTOUser;
+    user: UserDTO;
     /**
      * 
      * @type {Date}
@@ -91,7 +91,7 @@ export function UserFileDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'id': json['id'],
         'name': json['name'],
         'description': !exists(json, 'description') ? undefined : json['description'],
-        'user': LoginResponseDTOUserFromJSON(json['user']),
+        'user': UserDTOFromJSON(json['user']),
         'createdAt': (new Date(json['createdAt'])),
         'updatedAt': (new Date(json['updatedAt'])),
     };
@@ -109,7 +109,7 @@ export function UserFileDTOToJSON(value?: UserFileDTO | null): any {
         'id': value.id,
         'name': value.name,
         'description': value.description,
-        'user': LoginResponseDTOUserToJSON(value.user),
+        'user': UserDTOToJSON(value.user),
         'createdAt': (value.createdAt.toISOString()),
         'updatedAt': (value.updatedAt.toISOString()),
     };

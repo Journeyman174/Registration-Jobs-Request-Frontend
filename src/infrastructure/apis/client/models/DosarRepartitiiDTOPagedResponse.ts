@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DosarRepartitiiDTO } from './DosarRepartitiiDTO';
 import {
     DosarRepartitiiDTOFromJSON,
@@ -55,12 +55,14 @@ export interface DosarRepartitiiDTOPagedResponse {
 /**
  * Check if a given object implements the DosarRepartitiiDTOPagedResponse interface.
  */
-export function instanceOfDosarRepartitiiDTOPagedResponse(value: object): value is DosarRepartitiiDTOPagedResponse {
-    if (!('page' in value) || value['page'] === undefined) return false;
-    if (!('pageSize' in value) || value['pageSize'] === undefined) return false;
-    if (!('totalCount' in value) || value['totalCount'] === undefined) return false;
-    if (!('data' in value) || value['data'] === undefined) return false;
-    return true;
+export function instanceOfDosarRepartitiiDTOPagedResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "page" in value;
+    isInstance = isInstance && "pageSize" in value;
+    isInstance = isInstance && "totalCount" in value;
+    isInstance = isInstance && "data" in value;
+
+    return isInstance;
 }
 
 export function DosarRepartitiiDTOPagedResponseFromJSON(json: any): DosarRepartitiiDTOPagedResponse {
@@ -68,7 +70,7 @@ export function DosarRepartitiiDTOPagedResponseFromJSON(json: any): DosarReparti
 }
 
 export function DosarRepartitiiDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DosarRepartitiiDTOPagedResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -81,15 +83,18 @@ export function DosarRepartitiiDTOPagedResponseFromJSONTyped(json: any, ignoreDi
 }
 
 export function DosarRepartitiiDTOPagedResponseToJSON(value?: DosarRepartitiiDTOPagedResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'page': value['page'],
-        'pageSize': value['pageSize'],
-        'totalCount': value['totalCount'],
-        'data': ((value['data'] as Array<any>).map(DosarRepartitiiDTOToJSON)),
+        'page': value.page,
+        'pageSize': value.pageSize,
+        'totalCount': value.totalCount,
+        'data': ((value.data as Array<any>).map(DosarRepartitiiDTOToJSON)),
     };
 }
 

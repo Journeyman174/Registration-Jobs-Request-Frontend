@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CnpStudiiDTO } from './CnpStudiiDTO';
 import {
     CnpStudiiDTOFromJSON,
@@ -55,12 +55,14 @@ export interface CnpStudiiDTOPagedResponse {
 /**
  * Check if a given object implements the CnpStudiiDTOPagedResponse interface.
  */
-export function instanceOfCnpStudiiDTOPagedResponse(value: object): value is CnpStudiiDTOPagedResponse {
-    if (!('page' in value) || value['page'] === undefined) return false;
-    if (!('pageSize' in value) || value['pageSize'] === undefined) return false;
-    if (!('totalCount' in value) || value['totalCount'] === undefined) return false;
-    if (!('data' in value) || value['data'] === undefined) return false;
-    return true;
+export function instanceOfCnpStudiiDTOPagedResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "page" in value;
+    isInstance = isInstance && "pageSize" in value;
+    isInstance = isInstance && "totalCount" in value;
+    isInstance = isInstance && "data" in value;
+
+    return isInstance;
 }
 
 export function CnpStudiiDTOPagedResponseFromJSON(json: any): CnpStudiiDTOPagedResponse {
@@ -68,7 +70,7 @@ export function CnpStudiiDTOPagedResponseFromJSON(json: any): CnpStudiiDTOPagedR
 }
 
 export function CnpStudiiDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpStudiiDTOPagedResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -81,15 +83,18 @@ export function CnpStudiiDTOPagedResponseFromJSONTyped(json: any, ignoreDiscrimi
 }
 
 export function CnpStudiiDTOPagedResponseToJSON(value?: CnpStudiiDTOPagedResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'page': value['page'],
-        'pageSize': value['pageSize'],
-        'totalCount': value['totalCount'],
-        'data': ((value['data'] as Array<any>).map(CnpStudiiDTOToJSON)),
+        'page': value.page,
+        'pageSize': value.pageSize,
+        'totalCount': value.totalCount,
+        'data': ((value.data as Array<any>).map(CnpStudiiDTOToJSON)),
     };
 }
 

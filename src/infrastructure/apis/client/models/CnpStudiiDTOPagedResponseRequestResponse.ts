@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CnpStudiiDTOPagedResponse } from './CnpStudiiDTOPagedResponse';
 import {
     CnpStudiiDTOPagedResponseFromJSON,
@@ -49,10 +49,12 @@ export interface CnpStudiiDTOPagedResponseRequestResponse {
 /**
  * Check if a given object implements the CnpStudiiDTOPagedResponseRequestResponse interface.
  */
-export function instanceOfCnpStudiiDTOPagedResponseRequestResponse(value: object): value is CnpStudiiDTOPagedResponseRequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfCnpStudiiDTOPagedResponseRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function CnpStudiiDTOPagedResponseRequestResponseFromJSON(json: any): CnpStudiiDTOPagedResponseRequestResponse {
@@ -60,7 +62,7 @@ export function CnpStudiiDTOPagedResponseRequestResponseFromJSON(json: any): Cnp
 }
 
 export function CnpStudiiDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpStudiiDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function CnpStudiiDTOPagedResponseRequestResponseFromJSONTyped(json: any,
 }
 
 export function CnpStudiiDTOPagedResponseRequestResponseToJSON(value?: CnpStudiiDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': CnpStudiiDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': CnpStudiiDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

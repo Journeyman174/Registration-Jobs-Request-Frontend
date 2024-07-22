@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DosarRepartitiiDTOPagedResponse } from './DosarRepartitiiDTOPagedResponse';
 import {
     DosarRepartitiiDTOPagedResponseFromJSON,
@@ -49,10 +49,12 @@ export interface DosarRepartitiiDTOPagedResponseRequestResponse {
 /**
  * Check if a given object implements the DosarRepartitiiDTOPagedResponseRequestResponse interface.
  */
-export function instanceOfDosarRepartitiiDTOPagedResponseRequestResponse(value: object): value is DosarRepartitiiDTOPagedResponseRequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfDosarRepartitiiDTOPagedResponseRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function DosarRepartitiiDTOPagedResponseRequestResponseFromJSON(json: any): DosarRepartitiiDTOPagedResponseRequestResponse {
@@ -60,7 +62,7 @@ export function DosarRepartitiiDTOPagedResponseRequestResponseFromJSON(json: any
 }
 
 export function DosarRepartitiiDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DosarRepartitiiDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function DosarRepartitiiDTOPagedResponseRequestResponseFromJSONTyped(json
 }
 
 export function DosarRepartitiiDTOPagedResponseRequestResponseToJSON(value?: DosarRepartitiiDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': DosarRepartitiiDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': DosarRepartitiiDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

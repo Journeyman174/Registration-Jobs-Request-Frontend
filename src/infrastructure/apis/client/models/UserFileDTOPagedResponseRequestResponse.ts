@@ -37,13 +37,13 @@ export interface UserFileDTOPagedResponseRequestResponse {
      * @type {UserFileDTOPagedResponse}
      * @memberof UserFileDTOPagedResponseRequestResponse
      */
-    readonly response?: UserFileDTOPagedResponse | null;
+    response: UserFileDTOPagedResponse;
     /**
      * 
      * @type {ErrorMessage}
      * @memberof UserFileDTOPagedResponseRequestResponse
      */
-    readonly errorMessage?: ErrorMessage | null;
+    errorMessage: ErrorMessage;
 }
 
 /**
@@ -51,6 +51,8 @@ export interface UserFileDTOPagedResponseRequestResponse {
  */
 export function instanceOfUserFileDTOPagedResponseRequestResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
 
     return isInstance;
 }
@@ -65,8 +67,8 @@ export function UserFileDTOPagedResponseRequestResponseFromJSONTyped(json: any, 
     }
     return {
         
-        'response': !exists(json, 'response') ? undefined : UserFileDTOPagedResponseFromJSON(json['response']),
-        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': UserFileDTOPagedResponseFromJSON(json['response']),
+        'errorMessage': ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
@@ -79,6 +81,8 @@ export function UserFileDTOPagedResponseRequestResponseToJSON(value?: UserFileDT
     }
     return {
         
+        'response': UserFileDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DosarRepartitiiDTO } from './DosarRepartitiiDTO';
 import {
     DosarRepartitiiDTOFromJSON,
@@ -49,10 +49,12 @@ export interface DosarRepartitiiDTORequestResponse {
 /**
  * Check if a given object implements the DosarRepartitiiDTORequestResponse interface.
  */
-export function instanceOfDosarRepartitiiDTORequestResponse(value: object): value is DosarRepartitiiDTORequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfDosarRepartitiiDTORequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function DosarRepartitiiDTORequestResponseFromJSON(json: any): DosarRepartitiiDTORequestResponse {
@@ -60,7 +62,7 @@ export function DosarRepartitiiDTORequestResponseFromJSON(json: any): DosarRepar
 }
 
 export function DosarRepartitiiDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DosarRepartitiiDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function DosarRepartitiiDTORequestResponseFromJSONTyped(json: any, ignore
 }
 
 export function DosarRepartitiiDTORequestResponseToJSON(value?: DosarRepartitiiDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': DosarRepartitiiDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': DosarRepartitiiDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

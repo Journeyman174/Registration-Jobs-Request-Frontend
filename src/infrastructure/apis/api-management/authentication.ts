@@ -10,7 +10,7 @@ const loginMutationKey = "loginMutation";
  * Returns the object with the callbacks that can be used for the React Query API, in this case just to log in the user.
  */
 export const useLoginApi = () => {
-    const loginMutation = (apiAuthorizationLoginPostRequest: LoginDTO) => new AuthorizationApi().apiAuthorizationLoginPost({ apiAuthorizationLoginPostRequest }); // Use the generated client code and adapt it.
+    const loginMutation = (loginDTO: LoginDTO) => new AuthorizationApi().apiAuthorizationLoginPost({ loginDTO }); // Use the generated client code and adapt it.
 
     return {
         loginMutation: { // Return the mutation object.

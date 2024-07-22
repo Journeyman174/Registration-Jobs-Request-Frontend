@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { OlmStareEnum } from './OlmStareEnum';
 import {
     OlmStareEnumFromJSON,
@@ -85,17 +85,19 @@ export interface OlmAddDTO {
 /**
  * Check if a given object implements the OlmAddDTO interface.
  */
-export function instanceOfOlmAddDTO(value: object): value is OlmAddDTO {
-    if (!('dataOlm' in value) || value['dataOlm'] === undefined) return false;
-    if (!('dataOlmStart' in value) || value['dataOlmStart'] === undefined) return false;
-    if (!('dataOlmSfarsit' in value) || value['dataOlmSfarsit'] === undefined) return false;
-    if (!('agent' in value) || value['agent'] === undefined) return false;
-    if (!('cuiFirma' in value) || value['cuiFirma'] === undefined) return false;
-    if (!('idCor' in value) || value['idCor'] === undefined) return false;
-    if (!('adresaLocMunca' in value) || value['adresaLocMunca'] === undefined) return false;
-    if (!('nrLocMunca' in value) || value['nrLocMunca'] === undefined) return false;
-    if (!('stare' in value) || value['stare'] === undefined) return false;
-    return true;
+export function instanceOfOlmAddDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "dataOlm" in value;
+    isInstance = isInstance && "dataOlmStart" in value;
+    isInstance = isInstance && "dataOlmSfarsit" in value;
+    isInstance = isInstance && "agent" in value;
+    isInstance = isInstance && "cuiFirma" in value;
+    isInstance = isInstance && "idCor" in value;
+    isInstance = isInstance && "adresaLocMunca" in value;
+    isInstance = isInstance && "nrLocMunca" in value;
+    isInstance = isInstance && "stare" in value;
+
+    return isInstance;
 }
 
 export function OlmAddDTOFromJSON(json: any): OlmAddDTO {
@@ -103,7 +105,7 @@ export function OlmAddDTOFromJSON(json: any): OlmAddDTO {
 }
 
 export function OlmAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): OlmAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -121,20 +123,23 @@ export function OlmAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean):
 }
 
 export function OlmAddDTOToJSON(value?: OlmAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'dataOlm': ((value['dataOlm']).toISOString()),
-        'dataOlmStart': ((value['dataOlmStart']).toISOString()),
-        'dataOlmSfarsit': ((value['dataOlmSfarsit']).toISOString()),
-        'agent': value['agent'],
-        'cuiFirma': value['cuiFirma'],
-        'idCor': value['idCor'],
-        'adresaLocMunca': value['adresaLocMunca'],
-        'nrLocMunca': value['nrLocMunca'],
-        'stare': OlmStareEnumToJSON(value['stare']),
+        'dataOlm': (value.dataOlm.toISOString()),
+        'dataOlmStart': (value.dataOlmStart.toISOString()),
+        'dataOlmSfarsit': (value.dataOlmSfarsit.toISOString()),
+        'agent': value.agent,
+        'cuiFirma': value.cuiFirma,
+        'idCor': value.idCor,
+        'adresaLocMunca': value.adresaLocMunca,
+        'nrLocMunca': value.nrLocMunca,
+        'stare': OlmStareEnumToJSON(value.stare),
     };
 }
 

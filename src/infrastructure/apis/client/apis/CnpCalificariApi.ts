@@ -57,11 +57,8 @@ export class CnpCalificariApi extends runtime.BaseAPI {
     /**
      */
     async apiCnpCalificariCancelIdDeleteRaw(requestParameters: ApiCnpCalificariCancelIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiCnpCalificariCancelIdDelete().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiCnpCalificariCancelIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -77,7 +74,7 @@ export class CnpCalificariApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/CnpCalificari/Cancel/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/CnpCalificari/Cancel/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -115,7 +112,7 @@ export class CnpCalificariApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CnpCalificariAddDTOToJSON(requestParameters['cnpCalificariAddDTO']),
+            body: CnpCalificariAddDTOToJSON(requestParameters.cnpCalificariAddDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -131,11 +128,8 @@ export class CnpCalificariApi extends runtime.BaseAPI {
     /**
      */
     async apiCnpCalificariGetByIdIdGetRaw(requestParameters: ApiCnpCalificariGetByIdIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CnpCalificariDTORequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiCnpCalificariGetByIdIdGet().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiCnpCalificariGetByIdIdGet.');
         }
 
         const queryParameters: any = {};
@@ -151,7 +145,7 @@ export class CnpCalificariApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/CnpCalificari/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/CnpCalificari/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -172,16 +166,16 @@ export class CnpCalificariApi extends runtime.BaseAPI {
     async apiCnpCalificariGetFromUserIdGetRaw(requestParameters: ApiCnpCalificariGetFromUserIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CnpCalificariDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

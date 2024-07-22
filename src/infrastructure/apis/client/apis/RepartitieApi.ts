@@ -20,7 +20,7 @@ import type {
   RepartitiiDTORequestResponse,
   RepartitiiUpdateDTO,
   RequestResponse,
-} from '../models/index';
+} from '../models';
 import {
     RepartitiiAddDTOFromJSON,
     RepartitiiAddDTOToJSON,
@@ -32,7 +32,7 @@ import {
     RepartitiiUpdateDTOToJSON,
     RequestResponseFromJSON,
     RequestResponseToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface ApiRepartitieAddPostRequest {
     repartitiiAddDTO?: RepartitiiAddDTO;
@@ -89,7 +89,7 @@ export class RepartitieApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: RepartitiiAddDTOToJSON(requestParameters['repartitiiAddDTO']),
+            body: RepartitiiAddDTOToJSON(requestParameters.repartitiiAddDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -105,11 +105,8 @@ export class RepartitieApi extends runtime.BaseAPI {
     /**
      */
     async apiRepartitieDeleteIdDeleteRaw(requestParameters: ApiRepartitieDeleteIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiRepartitieDeleteIdDelete().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiRepartitieDeleteIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -125,7 +122,7 @@ export class RepartitieApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Repartitie/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Repartitie/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -144,11 +141,8 @@ export class RepartitieApi extends runtime.BaseAPI {
     /**
      */
     async apiRepartitieGetByIdIdGetRaw(requestParameters: ApiRepartitieGetByIdIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepartitiiDTORequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiRepartitieGetByIdIdGet().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiRepartitieGetByIdIdGet.');
         }
 
         const queryParameters: any = {};
@@ -164,7 +158,7 @@ export class RepartitieApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Repartitie/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Repartitie/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -185,16 +179,16 @@ export class RepartitieApi extends runtime.BaseAPI {
     async apiRepartitieGetByUserIdGetRaw(requestParameters: ApiRepartitieGetByUserIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepartitiiDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -229,16 +223,16 @@ export class RepartitieApi extends runtime.BaseAPI {
     async apiRepartitieGetPageGetRaw(requestParameters: ApiRepartitieGetPageGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepartitiiDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -290,7 +284,7 @@ export class RepartitieApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: RepartitiiUpdateDTOToJSON(requestParameters['repartitiiUpdateDTO']),
+            body: RepartitiiUpdateDTOToJSON(requestParameters.repartitiiUpdateDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));

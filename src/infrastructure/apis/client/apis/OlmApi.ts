@@ -20,7 +20,7 @@ import type {
   OlmDTORequestResponse,
   OlmUpdateDTO,
   RequestResponse,
-} from '../models/index';
+} from '../models';
 import {
     OlmAddDTOFromJSON,
     OlmAddDTOToJSON,
@@ -32,7 +32,7 @@ import {
     OlmUpdateDTOToJSON,
     RequestResponseFromJSON,
     RequestResponseToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface ApiOlmAddPostRequest {
     olmAddDTO?: OlmAddDTO;
@@ -89,7 +89,7 @@ export class OlmApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OlmAddDTOToJSON(requestParameters['olmAddDTO']),
+            body: OlmAddDTOToJSON(requestParameters.olmAddDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -105,11 +105,8 @@ export class OlmApi extends runtime.BaseAPI {
     /**
      */
     async apiOlmDeleteIdDeleteRaw(requestParameters: ApiOlmDeleteIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiOlmDeleteIdDelete().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiOlmDeleteIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -125,7 +122,7 @@ export class OlmApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Olm/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Olm/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -144,11 +141,8 @@ export class OlmApi extends runtime.BaseAPI {
     /**
      */
     async apiOlmGetByIdIdGetRaw(requestParameters: ApiOlmGetByIdIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OlmDTORequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiOlmGetByIdIdGet().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiOlmGetByIdIdGet.');
         }
 
         const queryParameters: any = {};
@@ -164,7 +158,7 @@ export class OlmApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Olm/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Olm/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -185,16 +179,16 @@ export class OlmApi extends runtime.BaseAPI {
     async apiOlmGetByUserIdGetRaw(requestParameters: ApiOlmGetByUserIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OlmDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -229,16 +223,16 @@ export class OlmApi extends runtime.BaseAPI {
     async apiOlmGetPageGetRaw(requestParameters: ApiOlmGetPageGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OlmDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -290,7 +284,7 @@ export class OlmApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: OlmUpdateDTOToJSON(requestParameters['olmUpdateDTO']),
+            body: OlmUpdateDTOToJSON(requestParameters.olmUpdateDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));

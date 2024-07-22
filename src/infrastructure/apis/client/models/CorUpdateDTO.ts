@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -42,11 +42,13 @@ export interface CorUpdateDTO {
 /**
  * Check if a given object implements the CorUpdateDTO interface.
  */
-export function instanceOfCorUpdateDTO(value: object): value is CorUpdateDTO {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('codCor' in value) || value['codCor'] === undefined) return false;
-    if (!('meserie' in value) || value['meserie'] === undefined) return false;
-    return true;
+export function instanceOfCorUpdateDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "codCor" in value;
+    isInstance = isInstance && "meserie" in value;
+
+    return isInstance;
 }
 
 export function CorUpdateDTOFromJSON(json: any): CorUpdateDTO {
@@ -54,7 +56,7 @@ export function CorUpdateDTOFromJSON(json: any): CorUpdateDTO {
 }
 
 export function CorUpdateDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): CorUpdateDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -66,14 +68,17 @@ export function CorUpdateDTOFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function CorUpdateDTOToJSON(value?: CorUpdateDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'codCor': value['codCor'],
-        'meserie': value['meserie'],
+        'id': value.id,
+        'codCor': value.codCor,
+        'meserie': value.meserie,
     };
 }
 

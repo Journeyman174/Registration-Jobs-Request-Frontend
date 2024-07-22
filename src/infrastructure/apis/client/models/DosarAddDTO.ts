@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DosarStareEnum } from './DosarStareEnum';
 import {
     DosarStareEnumFromJSON,
@@ -67,13 +67,15 @@ export interface DosarAddDTO {
 /**
  * Check if a given object implements the DosarAddDTO interface.
  */
-export function instanceOfDosarAddDTO(value: object): value is DosarAddDTO {
-    if (!('idSolicitant' in value) || value['idSolicitant'] === undefined) return false;
-    if (!('dataDosar' in value) || value['dataDosar'] === undefined) return false;
-    if (!('deLa' in value) || value['deLa'] === undefined) return false;
-    if (!('panaLa' in value) || value['panaLa'] === undefined) return false;
-    if (!('stare' in value) || value['stare'] === undefined) return false;
-    return true;
+export function instanceOfDosarAddDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "idSolicitant" in value;
+    isInstance = isInstance && "dataDosar" in value;
+    isInstance = isInstance && "deLa" in value;
+    isInstance = isInstance && "panaLa" in value;
+    isInstance = isInstance && "stare" in value;
+
+    return isInstance;
 }
 
 export function DosarAddDTOFromJSON(json: any): DosarAddDTO {
@@ -81,14 +83,14 @@ export function DosarAddDTOFromJSON(json: any): DosarAddDTO {
 }
 
 export function DosarAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): DosarAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'idSolicitant': json['idSolicitant'],
         'dataDosar': (new Date(json['dataDosar'])),
-        'cnpSolicitant': json['cnpSolicitant'] == null ? undefined : json['cnpSolicitant'],
+        'cnpSolicitant': !exists(json, 'cnpSolicitant') ? undefined : json['cnpSolicitant'],
         'deLa': (new Date(json['deLa'])),
         'panaLa': (new Date(json['panaLa'])),
         'stare': DosarStareEnumFromJSON(json['stare']),
@@ -96,17 +98,20 @@ export function DosarAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean
 }
 
 export function DosarAddDTOToJSON(value?: DosarAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'idSolicitant': value['idSolicitant'],
-        'dataDosar': ((value['dataDosar']).toISOString()),
-        'cnpSolicitant': value['cnpSolicitant'],
-        'deLa': ((value['deLa']).toISOString()),
-        'panaLa': ((value['panaLa']).toISOString()),
-        'stare': DosarStareEnumToJSON(value['stare']),
+        'idSolicitant': value.idSolicitant,
+        'dataDosar': (value.dataDosar.toISOString()),
+        'cnpSolicitant': value.cnpSolicitant,
+        'deLa': (value.deLa.toISOString()),
+        'panaLa': (value.panaLa.toISOString()),
+        'stare': DosarStareEnumToJSON(value.stare),
     };
 }
 

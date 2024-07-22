@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -42,11 +42,13 @@ export interface CnpCalificariAddDTO {
 /**
  * Check if a given object implements the CnpCalificariAddDTO interface.
  */
-export function instanceOfCnpCalificariAddDTO(value: object): value is CnpCalificariAddDTO {
-    if (!('idSolicitant' in value) || value['idSolicitant'] === undefined) return false;
-    if (!('cnpSolicitant' in value) || value['cnpSolicitant'] === undefined) return false;
-    if (!('idCor' in value) || value['idCor'] === undefined) return false;
-    return true;
+export function instanceOfCnpCalificariAddDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "idSolicitant" in value;
+    isInstance = isInstance && "cnpSolicitant" in value;
+    isInstance = isInstance && "idCor" in value;
+
+    return isInstance;
 }
 
 export function CnpCalificariAddDTOFromJSON(json: any): CnpCalificariAddDTO {
@@ -54,7 +56,7 @@ export function CnpCalificariAddDTOFromJSON(json: any): CnpCalificariAddDTO {
 }
 
 export function CnpCalificariAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpCalificariAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -66,14 +68,17 @@ export function CnpCalificariAddDTOFromJSONTyped(json: any, ignoreDiscriminator:
 }
 
 export function CnpCalificariAddDTOToJSON(value?: CnpCalificariAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'idSolicitant': value['idSolicitant'],
-        'cnpSolicitant': value['cnpSolicitant'],
-        'idCor': value['idCor'],
+        'idSolicitant': value.idSolicitant,
+        'cnpSolicitant': value.cnpSolicitant,
+        'idCor': value.idCor,
     };
 }
 

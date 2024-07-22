@@ -24,17 +24,6 @@ export const DosarStareEnum = {
 export type DosarStareEnum = typeof DosarStareEnum[keyof typeof DosarStareEnum];
 
 
-export function instanceOfDosarStareEnum(value: any): boolean {
-    for (const key in DosarStareEnum) {
-        if (Object.prototype.hasOwnProperty.call(DosarStareEnum, key)) {
-            if ((DosarStareEnum as Record<string, DosarStareEnum>)[key] === value) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 export function DosarStareEnumFromJSON(json: any): DosarStareEnum {
     return DosarStareEnumFromJSONTyped(json, false);
 }

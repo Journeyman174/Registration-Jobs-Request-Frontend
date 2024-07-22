@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -54,12 +54,14 @@ export interface DosarUpdateDTO {
 /**
  * Check if a given object implements the DosarUpdateDTO interface.
  */
-export function instanceOfDosarUpdateDTO(value: object): value is DosarUpdateDTO {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('dataDosar' in value) || value['dataDosar'] === undefined) return false;
-    if (!('deLa' in value) || value['deLa'] === undefined) return false;
-    if (!('panaLa' in value) || value['panaLa'] === undefined) return false;
-    return true;
+export function instanceOfDosarUpdateDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "dataDosar" in value;
+    isInstance = isInstance && "deLa" in value;
+    isInstance = isInstance && "panaLa" in value;
+
+    return isInstance;
 }
 
 export function DosarUpdateDTOFromJSON(json: any): DosarUpdateDTO {
@@ -67,30 +69,33 @@ export function DosarUpdateDTOFromJSON(json: any): DosarUpdateDTO {
 }
 
 export function DosarUpdateDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): DosarUpdateDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'id': json['id'],
         'dataDosar': (new Date(json['dataDosar'])),
-        'cnpSolicitant': json['cnpSolicitant'] == null ? undefined : json['cnpSolicitant'],
+        'cnpSolicitant': !exists(json, 'cnpSolicitant') ? undefined : json['cnpSolicitant'],
         'deLa': (new Date(json['deLa'])),
         'panaLa': (new Date(json['panaLa'])),
     };
 }
 
 export function DosarUpdateDTOToJSON(value?: DosarUpdateDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'dataDosar': ((value['dataDosar']).toISOString()),
-        'cnpSolicitant': value['cnpSolicitant'],
-        'deLa': ((value['deLa']).toISOString()),
-        'panaLa': ((value['panaLa']).toISOString()),
+        'id': value.id,
+        'dataDosar': (value.dataDosar.toISOString()),
+        'cnpSolicitant': value.cnpSolicitant,
+        'deLa': (value.deLa.toISOString()),
+        'panaLa': (value.panaLa.toISOString()),
     };
 }
 

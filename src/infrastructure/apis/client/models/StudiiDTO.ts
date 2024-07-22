@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,12 @@ export interface StudiiDTO {
 /**
  * Check if a given object implements the StudiiDTO interface.
  */
-export function instanceOfStudiiDTO(value: object): value is StudiiDTO {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('denStudii' in value) || value['denStudii'] === undefined) return false;
-    return true;
+export function instanceOfStudiiDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "denStudii" in value;
+
+    return isInstance;
 }
 
 export function StudiiDTOFromJSON(json: any): StudiiDTO {
@@ -47,7 +49,7 @@ export function StudiiDTOFromJSON(json: any): StudiiDTO {
 }
 
 export function StudiiDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): StudiiDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -58,13 +60,16 @@ export function StudiiDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean):
 }
 
 export function StudiiDTOToJSON(value?: StudiiDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'denStudii': value['denStudii'],
+        'id': value.id,
+        'denStudii': value.denStudii,
     };
 }
 

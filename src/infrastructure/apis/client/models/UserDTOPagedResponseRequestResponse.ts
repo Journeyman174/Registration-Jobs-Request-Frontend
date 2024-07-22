@@ -37,13 +37,13 @@ export interface UserDTOPagedResponseRequestResponse {
      * @type {UserDTOPagedResponse}
      * @memberof UserDTOPagedResponseRequestResponse
      */
-    readonly response?: UserDTOPagedResponse | null;
+    response: UserDTOPagedResponse;
     /**
      * 
      * @type {ErrorMessage}
      * @memberof UserDTOPagedResponseRequestResponse
      */
-    readonly errorMessage?: ErrorMessage | null;
+    errorMessage: ErrorMessage;
 }
 
 /**
@@ -51,6 +51,8 @@ export interface UserDTOPagedResponseRequestResponse {
  */
 export function instanceOfUserDTOPagedResponseRequestResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
 
     return isInstance;
 }
@@ -65,8 +67,8 @@ export function UserDTOPagedResponseRequestResponseFromJSONTyped(json: any, igno
     }
     return {
         
-        'response': !exists(json, 'response') ? undefined : UserDTOPagedResponseFromJSON(json['response']),
-        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': UserDTOPagedResponseFromJSON(json['response']),
+        'errorMessage': ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
@@ -79,6 +81,8 @@ export function UserDTOPagedResponseRequestResponseToJSON(value?: UserDTOPagedRe
     }
     return {
         
+        'response': UserDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

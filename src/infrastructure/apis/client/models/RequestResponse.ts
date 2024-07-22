@@ -37,7 +37,7 @@ export interface RequestResponse {
      * @type {ErrorMessage}
      * @memberof RequestResponse
      */
-    readonly errorMessage?: ErrorMessage | null;
+    errorMessage: ErrorMessage;
 }
 
 /**
@@ -45,6 +45,7 @@ export interface RequestResponse {
  */
 export function instanceOfRequestResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "errorMessage" in value;
 
     return isInstance;
 }
@@ -60,7 +61,7 @@ export function RequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
         'response': !exists(json, 'response') ? undefined : json['response'],
-        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'errorMessage': ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
@@ -73,6 +74,7 @@ export function RequestResponseToJSON(value?: RequestResponse | null): any {
     }
     return {
         
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

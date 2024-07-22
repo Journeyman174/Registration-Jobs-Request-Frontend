@@ -20,7 +20,7 @@ import type {
   DosarDTORequestResponse,
   DosarUpdateDTO,
   RequestResponse,
-} from '../models/index';
+} from '../models';
 import {
     DosarAddDTOFromJSON,
     DosarAddDTOToJSON,
@@ -32,7 +32,7 @@ import {
     DosarUpdateDTOToJSON,
     RequestResponseFromJSON,
     RequestResponseToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface ApiDosarAddPostRequest {
     dosarAddDTO?: DosarAddDTO;
@@ -83,7 +83,7 @@ export class DosarApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: DosarAddDTOToJSON(requestParameters['dosarAddDTO']),
+            body: DosarAddDTOToJSON(requestParameters.dosarAddDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -99,11 +99,8 @@ export class DosarApi extends runtime.BaseAPI {
     /**
      */
     async apiDosarDeleteIdDeleteRaw(requestParameters: ApiDosarDeleteIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiDosarDeleteIdDelete().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiDosarDeleteIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -119,7 +116,7 @@ export class DosarApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Dosar/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Dosar/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -138,11 +135,8 @@ export class DosarApi extends runtime.BaseAPI {
     /**
      */
     async apiDosarGetByIdIdGetRaw(requestParameters: ApiDosarGetByIdIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DosarDTORequestResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiDosarGetByIdIdGet().'
-            );
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiDosarGetByIdIdGet.');
         }
 
         const queryParameters: any = {};
@@ -158,7 +152,7 @@ export class DosarApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/api/Dosar/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/Dosar/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -179,16 +173,16 @@ export class DosarApi extends runtime.BaseAPI {
     async apiDosarGetFromUserIdGetRaw(requestParameters: ApiDosarGetFromUserIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DosarDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['Search'] = requestParameters['search'];
+        if (requestParameters.search !== undefined) {
+            queryParameters['Search'] = requestParameters.search;
         }
 
-        if (requestParameters['page'] != null) {
-            queryParameters['Page'] = requestParameters['page'];
+        if (requestParameters.page !== undefined) {
+            queryParameters['Page'] = requestParameters.page;
         }
 
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['PageSize'] = requestParameters['pageSize'];
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['PageSize'] = requestParameters.pageSize;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -240,7 +234,7 @@ export class DosarApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: DosarUpdateDTOToJSON(requestParameters['dosarUpdateDTO']),
+            body: DosarUpdateDTOToJSON(requestParameters.dosarUpdateDTO),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));

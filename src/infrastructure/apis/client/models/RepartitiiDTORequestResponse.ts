@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { RepartitiiDTO } from './RepartitiiDTO';
-import {
-    RepartitiiDTOFromJSON,
-    RepartitiiDTOFromJSONTyped,
-    RepartitiiDTOToJSON,
-} from './RepartitiiDTO';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
     ErrorMessageFromJSONTyped,
     ErrorMessageToJSON,
 } from './ErrorMessage';
+import type { RepartitiiDTO } from './RepartitiiDTO';
+import {
+    RepartitiiDTOFromJSON,
+    RepartitiiDTOFromJSONTyped,
+    RepartitiiDTOToJSON,
+} from './RepartitiiDTO';
 
 /**
  * 
@@ -49,10 +49,12 @@ export interface RepartitiiDTORequestResponse {
 /**
  * Check if a given object implements the RepartitiiDTORequestResponse interface.
  */
-export function instanceOfRepartitiiDTORequestResponse(value: object): value is RepartitiiDTORequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfRepartitiiDTORequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function RepartitiiDTORequestResponseFromJSON(json: any): RepartitiiDTORequestResponse {
@@ -60,7 +62,7 @@ export function RepartitiiDTORequestResponseFromJSON(json: any): RepartitiiDTORe
 }
 
 export function RepartitiiDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): RepartitiiDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function RepartitiiDTORequestResponseFromJSONTyped(json: any, ignoreDiscr
 }
 
 export function RepartitiiDTORequestResponseToJSON(value?: RepartitiiDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': RepartitiiDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': RepartitiiDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

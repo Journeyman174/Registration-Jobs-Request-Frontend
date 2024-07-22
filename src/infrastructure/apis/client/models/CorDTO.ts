@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -42,11 +42,13 @@ export interface CorDTO {
 /**
  * Check if a given object implements the CorDTO interface.
  */
-export function instanceOfCorDTO(value: object): value is CorDTO {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('codCor' in value) || value['codCor'] === undefined) return false;
-    if (!('meserie' in value) || value['meserie'] === undefined) return false;
-    return true;
+export function instanceOfCorDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "codCor" in value;
+    isInstance = isInstance && "meserie" in value;
+
+    return isInstance;
 }
 
 export function CorDTOFromJSON(json: any): CorDTO {
@@ -54,7 +56,7 @@ export function CorDTOFromJSON(json: any): CorDTO {
 }
 
 export function CorDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): CorDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -66,14 +68,17 @@ export function CorDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): Co
 }
 
 export function CorDTOToJSON(value?: CorDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'codCor': value['codCor'],
-        'meserie': value['meserie'],
+        'id': value.id,
+        'codCor': value.codCor,
+        'meserie': value.meserie,
     };
 }
 

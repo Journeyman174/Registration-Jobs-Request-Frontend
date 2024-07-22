@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { RepartitiiDTOPagedResponse } from './RepartitiiDTOPagedResponse';
-import {
-    RepartitiiDTOPagedResponseFromJSON,
-    RepartitiiDTOPagedResponseFromJSONTyped,
-    RepartitiiDTOPagedResponseToJSON,
-} from './RepartitiiDTOPagedResponse';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
     ErrorMessageFromJSONTyped,
     ErrorMessageToJSON,
 } from './ErrorMessage';
+import type { RepartitiiDTOPagedResponse } from './RepartitiiDTOPagedResponse';
+import {
+    RepartitiiDTOPagedResponseFromJSON,
+    RepartitiiDTOPagedResponseFromJSONTyped,
+    RepartitiiDTOPagedResponseToJSON,
+} from './RepartitiiDTOPagedResponse';
 
 /**
  * 
@@ -49,10 +49,12 @@ export interface RepartitiiDTOPagedResponseRequestResponse {
 /**
  * Check if a given object implements the RepartitiiDTOPagedResponseRequestResponse interface.
  */
-export function instanceOfRepartitiiDTOPagedResponseRequestResponse(value: object): value is RepartitiiDTOPagedResponseRequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfRepartitiiDTOPagedResponseRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function RepartitiiDTOPagedResponseRequestResponseFromJSON(json: any): RepartitiiDTOPagedResponseRequestResponse {
@@ -60,7 +62,7 @@ export function RepartitiiDTOPagedResponseRequestResponseFromJSON(json: any): Re
 }
 
 export function RepartitiiDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): RepartitiiDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function RepartitiiDTOPagedResponseRequestResponseFromJSONTyped(json: any
 }
 
 export function RepartitiiDTOPagedResponseRequestResponseToJSON(value?: RepartitiiDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': RepartitiiDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': RepartitiiDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

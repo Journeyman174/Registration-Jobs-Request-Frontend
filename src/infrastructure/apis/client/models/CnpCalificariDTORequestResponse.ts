@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CnpCalificariDTO } from './CnpCalificariDTO';
 import {
     CnpCalificariDTOFromJSON,
@@ -49,10 +49,12 @@ export interface CnpCalificariDTORequestResponse {
 /**
  * Check if a given object implements the CnpCalificariDTORequestResponse interface.
  */
-export function instanceOfCnpCalificariDTORequestResponse(value: object): value is CnpCalificariDTORequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfCnpCalificariDTORequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function CnpCalificariDTORequestResponseFromJSON(json: any): CnpCalificariDTORequestResponse {
@@ -60,7 +62,7 @@ export function CnpCalificariDTORequestResponseFromJSON(json: any): CnpCalificar
 }
 
 export function CnpCalificariDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpCalificariDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function CnpCalificariDTORequestResponseFromJSONTyped(json: any, ignoreDi
 }
 
 export function CnpCalificariDTORequestResponseToJSON(value?: CnpCalificariDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': CnpCalificariDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': CnpCalificariDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

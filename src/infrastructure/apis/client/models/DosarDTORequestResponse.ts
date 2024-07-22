@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DosarDTO } from './DosarDTO';
 import {
     DosarDTOFromJSON,
@@ -49,10 +49,12 @@ export interface DosarDTORequestResponse {
 /**
  * Check if a given object implements the DosarDTORequestResponse interface.
  */
-export function instanceOfDosarDTORequestResponse(value: object): value is DosarDTORequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfDosarDTORequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function DosarDTORequestResponseFromJSON(json: any): DosarDTORequestResponse {
@@ -60,7 +62,7 @@ export function DosarDTORequestResponseFromJSON(json: any): DosarDTORequestRespo
 }
 
 export function DosarDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DosarDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function DosarDTORequestResponseFromJSONTyped(json: any, ignoreDiscrimina
 }
 
 export function DosarDTORequestResponseToJSON(value?: DosarDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': DosarDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': DosarDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

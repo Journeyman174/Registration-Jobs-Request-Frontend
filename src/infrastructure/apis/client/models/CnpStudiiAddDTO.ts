@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -42,11 +42,13 @@ export interface CnpStudiiAddDTO {
 /**
  * Check if a given object implements the CnpStudiiAddDTO interface.
  */
-export function instanceOfCnpStudiiAddDTO(value: object): value is CnpStudiiAddDTO {
-    if (!('idSolicitant' in value) || value['idSolicitant'] === undefined) return false;
-    if (!('cnpSolicitant' in value) || value['cnpSolicitant'] === undefined) return false;
-    if (!('idStudii' in value) || value['idStudii'] === undefined) return false;
-    return true;
+export function instanceOfCnpStudiiAddDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "idSolicitant" in value;
+    isInstance = isInstance && "cnpSolicitant" in value;
+    isInstance = isInstance && "idStudii" in value;
+
+    return isInstance;
 }
 
 export function CnpStudiiAddDTOFromJSON(json: any): CnpStudiiAddDTO {
@@ -54,7 +56,7 @@ export function CnpStudiiAddDTOFromJSON(json: any): CnpStudiiAddDTO {
 }
 
 export function CnpStudiiAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): CnpStudiiAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -66,14 +68,17 @@ export function CnpStudiiAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boo
 }
 
 export function CnpStudiiAddDTOToJSON(value?: CnpStudiiAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'idSolicitant': value['idSolicitant'],
-        'cnpSolicitant': value['cnpSolicitant'],
-        'idStudii': value['idStudii'],
+        'idSolicitant': value.idSolicitant,
+        'cnpSolicitant': value.cnpSolicitant,
+        'idStudii': value.idStudii,
     };
 }
 

@@ -37,13 +37,13 @@ export interface LoginResponseDTORequestResponse {
      * @type {LoginResponseDTO}
      * @memberof LoginResponseDTORequestResponse
      */
-    readonly response?: LoginResponseDTO | null;
+    response: LoginResponseDTO;
     /**
      * 
      * @type {ErrorMessage}
      * @memberof LoginResponseDTORequestResponse
      */
-    readonly errorMessage?: ErrorMessage | null;
+    errorMessage: ErrorMessage;
 }
 
 /**
@@ -51,6 +51,8 @@ export interface LoginResponseDTORequestResponse {
  */
 export function instanceOfLoginResponseDTORequestResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
 
     return isInstance;
 }
@@ -65,8 +67,8 @@ export function LoginResponseDTORequestResponseFromJSONTyped(json: any, ignoreDi
     }
     return {
         
-        'response': !exists(json, 'response') ? undefined : LoginResponseDTOFromJSON(json['response']),
-        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': LoginResponseDTOFromJSON(json['response']),
+        'errorMessage': ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
@@ -79,6 +81,8 @@ export function LoginResponseDTORequestResponseToJSON(value?: LoginResponseDTORe
     }
     return {
         
+        'response': LoginResponseDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

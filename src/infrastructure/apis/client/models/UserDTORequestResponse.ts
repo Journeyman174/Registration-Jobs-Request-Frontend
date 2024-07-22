@@ -37,13 +37,13 @@ export interface UserDTORequestResponse {
      * @type {UserDTO}
      * @memberof UserDTORequestResponse
      */
-    readonly response?: UserDTO | null;
+    response: UserDTO;
     /**
      * 
      * @type {ErrorMessage}
      * @memberof UserDTORequestResponse
      */
-    readonly errorMessage?: ErrorMessage | null;
+    errorMessage: ErrorMessage;
 }
 
 /**
@@ -51,6 +51,8 @@ export interface UserDTORequestResponse {
  */
 export function instanceOfUserDTORequestResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
 
     return isInstance;
 }
@@ -65,8 +67,8 @@ export function UserDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'response': !exists(json, 'response') ? undefined : UserDTOFromJSON(json['response']),
-        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': UserDTOFromJSON(json['response']),
+        'errorMessage': ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
@@ -79,6 +81,8 @@ export function UserDTORequestResponseToJSON(value?: UserDTORequestResponse | nu
     }
     return {
         
+        'response': UserDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

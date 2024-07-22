@@ -19,7 +19,7 @@ export const useUserApi = () => {
 
     const getUsers = (page: ApiUserGetPageGetRequest) => new UserApi(config).apiUserGetPageGet(page); // Use the generated client code and adapt it.
     const getUser = (id: string) => new UserApi(config).apiUserGetByIdIdGet({ id });
-    const addUser = (apiUserAddPostRequest: UserAddDTO) => new UserApi(config).apiUserAddPost({ apiUserAddPostRequest });
+    const addUser = (user: UserAddDTO) => new UserApi(config).apiUserAddPost({ userAddDTO: user });
     const deleteUser = (id: string) => new UserApi(config).apiUserDeleteIdDelete({ id });
 
     return {

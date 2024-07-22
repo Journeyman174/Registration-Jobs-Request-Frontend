@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { StudiiDTO } from './StudiiDTO';
-import {
-    StudiiDTOFromJSON,
-    StudiiDTOFromJSONTyped,
-    StudiiDTOToJSON,
-} from './StudiiDTO';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
     ErrorMessageFromJSONTyped,
     ErrorMessageToJSON,
 } from './ErrorMessage';
+import type { StudiiDTO } from './StudiiDTO';
+import {
+    StudiiDTOFromJSON,
+    StudiiDTOFromJSONTyped,
+    StudiiDTOToJSON,
+} from './StudiiDTO';
 
 /**
  * 
@@ -49,10 +49,12 @@ export interface StudiiDTORequestResponse {
 /**
  * Check if a given object implements the StudiiDTORequestResponse interface.
  */
-export function instanceOfStudiiDTORequestResponse(value: object): value is StudiiDTORequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfStudiiDTORequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function StudiiDTORequestResponseFromJSON(json: any): StudiiDTORequestResponse {
@@ -60,7 +62,7 @@ export function StudiiDTORequestResponseFromJSON(json: any): StudiiDTORequestRes
 }
 
 export function StudiiDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): StudiiDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function StudiiDTORequestResponseFromJSONTyped(json: any, ignoreDiscrimin
 }
 
 export function StudiiDTORequestResponseToJSON(value?: StudiiDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': StudiiDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': StudiiDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

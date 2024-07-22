@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CorDTO } from './CorDTO';
 import {
     CorDTOFromJSON,
@@ -49,10 +49,12 @@ export interface CorDTORequestResponse {
 /**
  * Check if a given object implements the CorDTORequestResponse interface.
  */
-export function instanceOfCorDTORequestResponse(value: object): value is CorDTORequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfCorDTORequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function CorDTORequestResponseFromJSON(json: any): CorDTORequestResponse {
@@ -60,7 +62,7 @@ export function CorDTORequestResponseFromJSON(json: any): CorDTORequestResponse 
 }
 
 export function CorDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CorDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function CorDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminato
 }
 
 export function CorDTORequestResponseToJSON(value?: CorDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': CorDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': CorDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

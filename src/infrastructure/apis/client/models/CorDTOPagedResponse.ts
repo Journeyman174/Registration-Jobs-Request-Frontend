@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CorDTO } from './CorDTO';
 import {
     CorDTOFromJSON,
@@ -55,12 +55,14 @@ export interface CorDTOPagedResponse {
 /**
  * Check if a given object implements the CorDTOPagedResponse interface.
  */
-export function instanceOfCorDTOPagedResponse(value: object): value is CorDTOPagedResponse {
-    if (!('page' in value) || value['page'] === undefined) return false;
-    if (!('pageSize' in value) || value['pageSize'] === undefined) return false;
-    if (!('totalCount' in value) || value['totalCount'] === undefined) return false;
-    if (!('data' in value) || value['data'] === undefined) return false;
-    return true;
+export function instanceOfCorDTOPagedResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "page" in value;
+    isInstance = isInstance && "pageSize" in value;
+    isInstance = isInstance && "totalCount" in value;
+    isInstance = isInstance && "data" in value;
+
+    return isInstance;
 }
 
 export function CorDTOPagedResponseFromJSON(json: any): CorDTOPagedResponse {
@@ -68,7 +70,7 @@ export function CorDTOPagedResponseFromJSON(json: any): CorDTOPagedResponse {
 }
 
 export function CorDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CorDTOPagedResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -81,15 +83,18 @@ export function CorDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator:
 }
 
 export function CorDTOPagedResponseToJSON(value?: CorDTOPagedResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'page': value['page'],
-        'pageSize': value['pageSize'],
-        'totalCount': value['totalCount'],
-        'data': ((value['data'] as Array<any>).map(CorDTOToJSON)),
+        'page': value.page,
+        'pageSize': value.pageSize,
+        'totalCount': value.totalCount,
+        'data': ((value.data as Array<any>).map(CorDTOToJSON)),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { RezultatRepartitieEnum } from './RezultatRepartitieEnum';
 import {
     RezultatRepartitieEnumFromJSON,
@@ -61,12 +61,14 @@ export interface RepartitiiUpdateDTO {
 /**
  * Check if a given object implements the RepartitiiUpdateDTO interface.
  */
-export function instanceOfRepartitiiUpdateDTO(value: object): value is RepartitiiUpdateDTO {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('dataRepartitie' in value) || value['dataRepartitie'] === undefined) return false;
-    if (!('idOlm' in value) || value['idOlm'] === undefined) return false;
-    if (!('rezultat' in value) || value['rezultat'] === undefined) return false;
-    return true;
+export function instanceOfRepartitiiUpdateDTO(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "dataRepartitie" in value;
+    isInstance = isInstance && "idOlm" in value;
+    isInstance = isInstance && "rezultat" in value;
+
+    return isInstance;
 }
 
 export function RepartitiiUpdateDTOFromJSON(json: any): RepartitiiUpdateDTO {
@@ -74,13 +76,13 @@ export function RepartitiiUpdateDTOFromJSON(json: any): RepartitiiUpdateDTO {
 }
 
 export function RepartitiiUpdateDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): RepartitiiUpdateDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'id': json['id'],
-        'cnp': json['cnp'] == null ? undefined : json['cnp'],
+        'cnp': !exists(json, 'cnp') ? undefined : json['cnp'],
         'dataRepartitie': (new Date(json['dataRepartitie'])),
         'idOlm': json['idOlm'],
         'rezultat': RezultatRepartitieEnumFromJSON(json['rezultat']),
@@ -88,16 +90,19 @@ export function RepartitiiUpdateDTOFromJSONTyped(json: any, ignoreDiscriminator:
 }
 
 export function RepartitiiUpdateDTOToJSON(value?: RepartitiiUpdateDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'cnp': value['cnp'],
-        'dataRepartitie': ((value['dataRepartitie']).toISOString()),
-        'idOlm': value['idOlm'],
-        'rezultat': RezultatRepartitieEnumToJSON(value['rezultat']),
+        'id': value.id,
+        'cnp': value.cnp,
+        'dataRepartitie': (value.dataRepartitie.toISOString()),
+        'idOlm': value.idOlm,
+        'rezultat': RezultatRepartitieEnumToJSON(value.rezultat),
     };
 }
 

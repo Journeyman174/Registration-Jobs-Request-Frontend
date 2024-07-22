@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { OlmDTO } from './OlmDTO';
 import {
     OlmDTOFromJSON,
@@ -55,12 +55,14 @@ export interface OlmDTOPagedResponse {
 /**
  * Check if a given object implements the OlmDTOPagedResponse interface.
  */
-export function instanceOfOlmDTOPagedResponse(value: object): value is OlmDTOPagedResponse {
-    if (!('page' in value) || value['page'] === undefined) return false;
-    if (!('pageSize' in value) || value['pageSize'] === undefined) return false;
-    if (!('totalCount' in value) || value['totalCount'] === undefined) return false;
-    if (!('data' in value) || value['data'] === undefined) return false;
-    return true;
+export function instanceOfOlmDTOPagedResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "page" in value;
+    isInstance = isInstance && "pageSize" in value;
+    isInstance = isInstance && "totalCount" in value;
+    isInstance = isInstance && "data" in value;
+
+    return isInstance;
 }
 
 export function OlmDTOPagedResponseFromJSON(json: any): OlmDTOPagedResponse {
@@ -68,7 +70,7 @@ export function OlmDTOPagedResponseFromJSON(json: any): OlmDTOPagedResponse {
 }
 
 export function OlmDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): OlmDTOPagedResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -81,15 +83,18 @@ export function OlmDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator:
 }
 
 export function OlmDTOPagedResponseToJSON(value?: OlmDTOPagedResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'page': value['page'],
-        'pageSize': value['pageSize'],
-        'totalCount': value['totalCount'],
-        'data': ((value['data'] as Array<any>).map(OlmDTOToJSON)),
+        'page': value.page,
+        'pageSize': value.pageSize,
+        'totalCount': value.totalCount,
+        'data': ((value.data as Array<any>).map(OlmDTOToJSON)),
     };
 }
 

@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { ErrorMessage } from './ErrorMessage';
-import {
-    ErrorMessageFromJSON,
-    ErrorMessageFromJSONTyped,
-    ErrorMessageToJSON,
-} from './ErrorMessage';
+import { exists, mapValues } from '../runtime';
 import type { DosarDTOPagedResponse } from './DosarDTOPagedResponse';
 import {
     DosarDTOPagedResponseFromJSON,
     DosarDTOPagedResponseFromJSONTyped,
     DosarDTOPagedResponseToJSON,
 } from './DosarDTOPagedResponse';
+import type { ErrorMessage } from './ErrorMessage';
+import {
+    ErrorMessageFromJSON,
+    ErrorMessageFromJSONTyped,
+    ErrorMessageToJSON,
+} from './ErrorMessage';
 
 /**
  * 
@@ -49,10 +49,12 @@ export interface DosarDTOPagedResponseRequestResponse {
 /**
  * Check if a given object implements the DosarDTOPagedResponseRequestResponse interface.
  */
-export function instanceOfDosarDTOPagedResponseRequestResponse(value: object): value is DosarDTOPagedResponseRequestResponse {
-    if (!('response' in value) || value['response'] === undefined) return false;
-    if (!('errorMessage' in value) || value['errorMessage'] === undefined) return false;
-    return true;
+export function instanceOfDosarDTOPagedResponseRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "response" in value;
+    isInstance = isInstance && "errorMessage" in value;
+
+    return isInstance;
 }
 
 export function DosarDTOPagedResponseRequestResponseFromJSON(json: any): DosarDTOPagedResponseRequestResponse {
@@ -60,7 +62,7 @@ export function DosarDTOPagedResponseRequestResponseFromJSON(json: any): DosarDT
 }
 
 export function DosarDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DosarDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -71,13 +73,16 @@ export function DosarDTOPagedResponseRequestResponseFromJSONTyped(json: any, ign
 }
 
 export function DosarDTOPagedResponseRequestResponseToJSON(value?: DosarDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': DosarDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': DosarDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 
