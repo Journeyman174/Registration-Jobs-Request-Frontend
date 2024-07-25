@@ -6,5 +6,8 @@
     "labels.no": "No",
     "labels.actions": "Actions",
     "labels.addUser": "Add user",
-    "labels.addUserFile": "Add file"
+    "labels.addCor": "Add COR jobs",
+    "labels.addStudii": "Add studies",
+    "labels.addUserFile": "Add file",
+    "labels.addSolicitanti": "Add job applicant"
 }

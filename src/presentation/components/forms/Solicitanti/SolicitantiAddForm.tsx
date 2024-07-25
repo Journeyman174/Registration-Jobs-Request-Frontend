@@ -11,7 +11,7 @@ import {
     MenuItem
 } from "@mui/material";
 import { FormattedMessage, useIntl } from "react-intl";
-import { useUserAddFormController } from "./UserAddForm.controller";
+import { useSolicitantiAddFormController } from "./SolicitantiAddForm.controller";
 import { isEmpty, isUndefined } from "lodash";
 import { UserRoleEnum } from "@infrastructure/apis/client";
 
@@ -19,9 +19,9 @@ import { UserRoleEnum } from "@infrastructure/apis/client";
  * Here we declare the user add form component.
  * This form may be used in modals so the onSubmit callback could close the modal on completion.
  */
-export const UserAddForm = (props: { onSubmit?: () => void }) => {
+export const SolicitantiAddForm = (props: { onSubmit?: () => void }) => {
     const { formatMessage } = useIntl();
-    const { state, actions, computed } = useUserAddFormController(props.onSubmit); // Use the controller.
+    const { state, actions, computed } = useSolicitantiAddFormController(props.onSubmit); // Use the controller.
 
     return <form onSubmit={actions.handleSubmit(actions.submit)}> {/* Wrap your form into a form tag and use the handle submit callback to validate the form and call the data submission. */}
         <Stack spacing={4} style={{ width: "100%" }}>
@@ -30,128 +30,134 @@ export const UserAddForm = (props: { onSubmit?: () => void }) => {
                     <Grid container item direction="column" xs={6} md={6}>
                         <FormControl
                             fullWidth
-                            error={!isUndefined(state.errors.name)}
+                            error={!isUndefined(state.errors.dataInregistare)}
                         > {/* Wrap the input into a form control and use the errors to show the input invalid if needed. */}
                             <FormLabel required>
-                                <FormattedMessage id="globals.name" />
+                                <FormattedMessage id="globals.dataInregistare" />
                             </FormLabel> {/* Add a form label to indicate what the input means. */}
                             <OutlinedInput
-                                {...actions.register("name")} // Bind the form variable to the UI input.
+                                {...actions.register("dataInregistare")} // Bind the form variable to the UI input.
                                 placeholder={formatMessage(
                                     { id: "globals.placeholders.textInput" },
                                     {
                                         fieldName: formatMessage({
-                                            id: "globals.name",
+                                            id: "globals.dataInregistare",
                                         }),
                                     })}
                                 autoComplete="none"
                             /> {/* Add a input like a textbox shown here. */}
                             <FormHelperText
-                                hidden={isUndefined(state.errors.name)}
+                                hidden={isUndefined(state.errors.dataInregistare)}
                             >
-                                {state.errors.name?.message}
+                                {state.errors.dataInregistare?.message}
                             </FormHelperText> {/* Add a helper text that is shown then the input has a invalid value. */}
                         </FormControl>
                     </Grid>
                     <Grid container item direction="column" xs={6} md={6}>
                         <FormControl
                             fullWidth
-                            error={!isUndefined(state.errors.email)}
+                            error={!isUndefined(state.errors.cnpSolicitant)}
                         >
                             <FormLabel required>
-                                <FormattedMessage id="globals.email" />
+                                <FormattedMessage id="globals.cnpSolicitant" />
                             </FormLabel>
                             <OutlinedInput
-                                {...actions.register("email")}
+                                {...actions.register("cnpSolicitant")}
                                 placeholder={formatMessage(
                                     { id: "globals.placeholders.textInput" },
                                     {
                                         fieldName: formatMessage({
-                                            id: "globals.email",
+                                            id: "globals.cnpSolicitant",
                                         }),
                                     })}
                                 autoComplete="none"
                             />
                             <FormHelperText
-                                hidden={isUndefined(state.errors.email)}
+                                hidden={isUndefined(state.errors.cnpSolicitant)}
                             >
-                                {state.errors.email?.message}
+                                {state.errors.cnpSolicitant?.message}
                             </FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid container item direction="column" xs={6} md={6}>
                         <FormControl
                             fullWidth
-                            error={!isUndefined(state.errors.password)}
+                            error={!isUndefined(state.errors.nume)}
                         >
                             <FormLabel required>
-                                <FormattedMessage id="globals.password" />
+                                <FormattedMessage id="globals.nume" />
                             </FormLabel>
                             <OutlinedInput
-                                type="password"
-                                {...actions.register("password")}
+                                {...actions.register("nume")}
                                 placeholder={formatMessage(
                                     { id: "globals.placeholders.textInput" },
                                     {
                                         fieldName: formatMessage({
-                                            id: "globals.password",
+                                            id: "globals.nume",
                                         }),
                                     })}
                                 autoComplete="none"
                             />
                             <FormHelperText
-                                hidden={isUndefined(state.errors.password)}
+                                hidden={isUndefined(state.errors.nume)}
                             >
-                                {state.errors.password?.message}
+                                {state.errors.nume?.message}
                             </FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid container item direction="column" xs={6} md={6}>
                         <FormControl
                             fullWidth
-                            error={!isUndefined(state.errors.role)}
+                            error={!isUndefined(state.errors.prenume)}
                         >
                             <FormLabel required>
-                                <FormattedMessage id="globals.role" />
+                                <FormattedMessage id="globals.prenume" />
                             </FormLabel>
-                            <Select
-                                {...actions.register("role")}
-                                value={actions.watch("role")}
-                                onChange={actions.selectRole} // Selects may need a listener to for the variable change.
-                                displayEmpty
-                            >
-                                <MenuItem value="" disabled> {/* Add the select options, the first here is used as a placeholder. */}
-                                    <span className="text-gray">
-                                        {formatMessage({ id: "globals.placeholders.selectInput" }, {
-                                            fieldName: formatMessage({
-                                                id: "globals.role",
-                                            }),
-                                        })}
-                                    </span>
-                                </MenuItem>
-                                <MenuItem value={UserRoleEnum.Client}>
-                                    <FormattedMessage id="globals.client" />
-                                </MenuItem>
-                                
-                                <MenuItem value={UserRoleEnum.Personnel}>
-                                    <FormattedMessage id="globals.personnel" />
-                                 </MenuItem>
-
-                                <MenuItem value={UserRoleEnum.Solicitant}>
-                                    <FormattedMessage id="globals.solicitant" />
-
-                                </MenuItem>
-                                <MenuItem value={UserRoleEnum.Admin}>
-                                    <FormattedMessage id="globals.admin" />
-                                </MenuItem>
-                            </Select>
+                            <OutlinedInput
+                                {...actions.register("prenume")}
+                                placeholder={formatMessage(
+                                    { id: "globals.placeholders.textInput" },
+                                    {
+                                        fieldName: formatMessage({
+                                            id: "globals.prenume",
+                                        }),
+                                    })}
+                                autoComplete="none"
+                            />
                             <FormHelperText
-                                hidden={isUndefined(state.errors.role)}
+                                hidden={isUndefined(state.errors.prenume)}
                             >
-                                {state.errors.role?.message}
+                                {state.errors.prenume?.message}
                             </FormHelperText>
                         </FormControl>
                     </Grid>
+                    <Grid container item direction="column" xs={6} md={6}>
+                        <FormControl
+                            fullWidth
+                            error={!isUndefined(state.errors.adresa)}
+                        >
+                            <FormLabel required>
+                                <FormattedMessage id="globals.adresa" />
+                            </FormLabel>
+                            <OutlinedInput
+                                {...actions.register("adresa")}
+                                placeholder={formatMessage(
+                                    { id: "globals.placeholders.textInput" },
+                                    {
+                                        fieldName: formatMessage({
+                                            id: "globals.adresa",
+                                        }),
+                                    })}
+                                autoComplete="none"
+                            />
+                            <FormHelperText
+                                hidden={isUndefined(state.errors.adresa)}
+                            >
+                                {state.errors.adresa?.message}
+                            </FormHelperText>
+                        </FormControl>
+                    </Grid>
+
                 </Grid>
                 <Grid container item direction="row" xs={12} className="padding-top-sm">
                     <Grid container item direction="column" xs={12} md={7}></Grid>

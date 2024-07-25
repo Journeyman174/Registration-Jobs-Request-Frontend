@@ -22,6 +22,7 @@ export const Navbar = () => {
   const { formatMessage } = useIntl();
   const { loggedIn } = useAppSelector(x => x.profileReducer);
   const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
+  const isSolicitant = useOwnUserHasRole(UserRoleEnum.Solicitant);
   const dispatch = useAppDispatch();
   const { redirectToHome } = useAppRouter();
   const logout = useCallback(() => {
@@ -66,8 +67,39 @@ export const Navbar = () => {
               </Grid>
               <Grid container item direction="column" xs={1}>
                 <Button color="inherit">
-                  <Link style={{ color: 'white' }} to={AppRoute.UserFiles}>
-                    {formatMessage({ id: "globals.files" })}
+                  <Link style={{ color: 'white' }} to={AppRoute.Cor}>
+                    {formatMessage({ id: "globals.cor" })}
+                  </Link>
+                </Button>
+              </Grid> 
+              <Grid container item direction="column" xs={1}>
+                <Button color="inherit">
+                  <Link style={{ color: 'white' }} to={AppRoute.Studii}>
+                    {formatMessage({ id: "globals.studii" })}
+                  </Link>
+                </Button>
+              </Grid>
+              <Grid container item direction="column" xs={1}>
+                <Button color="inherit">
+                  <Link style={{ color: 'white' }} to={AppRoute.Solicitanti}>
+                    {formatMessage({ id: "globals.solicitanti" })}
+                  </Link>
+                </Button>
+              </Grid>
+            </Grid>}            
+            {isSolicitant && <Grid // If the user is logged in and it is an admin they can have new menu items shown.
+              container
+              item
+              direction="row"
+              xs={12}
+              alignItems="center"
+              wrap="nowrap"
+              columnSpacing={15}
+            >
+              <Grid container item direction="column" xs={1}>
+                <Button color="inherit">
+                  <Link style={{ color: 'white' }} to={AppRoute.Solicitanti}>
+                    {formatMessage({ id: "globals.solicitanti" })}
                   </Link>
                 </Button>
               </Grid>

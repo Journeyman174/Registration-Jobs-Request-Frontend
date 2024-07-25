@@ -14,7 +14,7 @@ export const Footer: FC<{}> = () => {
       <Grid container item direction="column" xs={12}>
         <Container>
           <div className="app__copyright">
-            &copy; {year} • All rights reserved
+            &copy; {year} • All rights • reserved Olaru Gabriel
           </div>
         </Container>
       </Grid>
