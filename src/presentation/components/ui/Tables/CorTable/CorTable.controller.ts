@@ -8,7 +8,7 @@ import { usePaginationController } from "../Pagination.controller";
  * This is controller hook manages the table state including the pagination and data retrieval from the backend.
  */
 export const useCorTableController = () => {
-    const { getCors: { key: queryKey,  query }, deleteCor: { key: deleteProdKey, mutation: deleteCor } } = useCorApi(); // Use the API hook.
+    const { getCors: { key: queryKey,  query }, deleteCor: { key: deleteCorKey, mutation: deleteCor } } = useCorApi(); // Use the API hook.
     const queryClient = useQueryClient(); // Get the query client.
     const { page, pageSize, setPagination } = usePaginationController(); // Get the pagination state.
     const { data, isError, isLoading } = useQuery({
@@ -19,7 +19,14 @@ export const useCorTableController = () => {
             data: []
         })
     }); // Retrieve the table page from the backend via the query hook.
-    
+    const { mutateAsync: deleteMutation } = useMutation({
+        mutationKey: [deleteCorKey],
+        mutationFn: deleteCor
+    }); // Use a mutation to remove an entry.
+    const remove = useCallback(
+        (id: string) => deleteMutation(id).then(() => queryClient.invalidateQueries({ queryKey: [queryKey] })),
+        [queryClient, deleteMutation, queryKey]); // Create the callback to remove an entry.
+
     const tryReload = useCallback(
         () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
         [queryClient, queryKey]); // Create a callback to try reloading the data for the table via query invalidation.
@@ -31,6 +38,7 @@ export const useCorTableController = () => {
         tryReload,
         pagedData: data?.response,
         isError,
-        isLoading
+        isLoading,
+        remove
     };
 }

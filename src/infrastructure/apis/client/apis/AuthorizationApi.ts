@@ -29,8 +29,6 @@ export interface ApiAuthorizationLoginPostRequest {
     loginDTO?: LoginDTO;
 }
 
-
-
 /**
  * 
  */

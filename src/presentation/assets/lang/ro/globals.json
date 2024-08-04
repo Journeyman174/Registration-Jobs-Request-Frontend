@@ -31,6 +31,8 @@
     "globals.studii" : "Studii",
     "globals.cor" : "COR",  
     "globals.solicitanti" : "Solicitanti",
+    "globals.cnpCalificari" : "Meserii",
+    "globals.cnpStudii" : "Studii",
     "globals.placeholders.textInput": "Va rugam sa introduceti {fieldName}",
     "globals.placeholders.selectInput": "Va rugam sa selectati {fieldName}",
     "globals.validations.requiredField": "{fieldName} este camp obligatoriu!"

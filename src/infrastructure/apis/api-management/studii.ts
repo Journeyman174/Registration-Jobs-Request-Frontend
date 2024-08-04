@@ -1,5 +1,5 @@
 import { useAppSelector } from "@application/store";
-import {StudiiApi,StudiiDTOPagedResponse,StudiiAddDTO} from "../client"
+import {StudiiApi,StudiiDTOPagedResponse,StudiiAddDTO, StudiiUpdateDTO} from "../client"
 import { getAuthenticationConfiguration } from "@infrastructure/utils/userUtils";
 import { Mutation } from "@tanstack/react-query";
 
@@ -10,6 +10,7 @@ const getStudiiQueryKey = "getStudiiQuery";
 const getStudiisQueryKey = "getStudiisQuery";
 const addStudiiMutationKey = "addStudiiMutation";
 const deleteStudiiMutationKey = "deleteStudiiMutationKey";
+const updateStudiiMutationKey = "updateStudiiMutation";
 /**
  * Returns the an object with the callbacks that can be used for the React Query API, in this case to manage the studii API.
  */
@@ -21,6 +22,7 @@ export const useStudiiApi = () => {
     const getStudiis = (page:StudiiDTOPagedResponse)=>new StudiiApi(config).apiStudiiGetPageGet(page);
     const addStudii = (studii:StudiiAddDTO)=>new StudiiApi(config).apiStudiiAddPost({studiiAddDTO:studii});
     const deleteStudii = (id: string) => new StudiiApi(config).apiStudiiDeleteIdDelete({id});
+    const updateStudii =   (studii: StudiiUpdateDTO) => new StudiiApi(config).apiStudiiUpdatePut({studiiUpdateDTO: studii});
 
     return {
         getStudii: { // Return the query object.
@@ -38,7 +40,12 @@ export const useStudiiApi = () => {
         deleteStudii: {
             key: deleteStudiiMutationKey,
             mutation: deleteStudii
-        }
+        },
+        updateStudii: {
+            key: updateStudiiMutationKey,
+            mutation: updateStudii
+        },
+
 
      }
 }

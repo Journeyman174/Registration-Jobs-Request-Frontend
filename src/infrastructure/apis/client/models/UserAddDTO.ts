@@ -55,7 +55,7 @@ export interface UserAddDTO {
      * @type {string}
      * @memberof UserAddDTO
      */
-//    userId: string;
+
 }
 
 /**
@@ -86,7 +86,7 @@ export function UserAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'email': json['email'],
         'password': json['password'],
         'role': UserRoleEnumFromJSON(json['role']),
-//        'userId': json['userId'],
+ //       'userId': json['userId'],
     };
 }
 

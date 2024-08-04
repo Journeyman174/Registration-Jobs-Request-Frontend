@@ -1,5 +1,5 @@
 import { useAppSelector } from "@application/store";
-import {CorApi,CorDTOPagedResponse,CorAddDTO} from "../client"
+import {CorApi,CorDTOPagedResponse,CorAddDTO, CorUpdateDTO} from "../client"
 import { getAuthenticationConfiguration } from "@infrastructure/utils/userUtils";
 import { Mutation } from "@tanstack/react-query";
 
@@ -10,6 +10,8 @@ const getCorQueryKey = "getCorQuery";
 const getCorsQueryKey = "getCorsQuery";
 const addCorMutationKey = "addCorMutation";
 const deleteCorMutationKey = "deleteCorMutationKey";
+const updateCorMutationKey = "updateCorMutation";
+
 /**
  * Returns the an object with the callbacks that can be used for the React Query API, in this case to manage the user API.
  */
@@ -21,7 +23,7 @@ export const useCorApi = () => {
     const getCors = (page:CorDTOPagedResponse)=>new CorApi(config).apiCorGetPageGet(page);
     const addCor = (cor:CorAddDTO)=>new CorApi(config).apiCorAddPost({corAddDTO:cor});
     const deleteCor = (id: string) => new CorApi(config).apiCorDeleteIdDelete({id});
-
+    const updateCor =   (cor: CorUpdateDTO) => new CorApi(config).apiCorUpdatePut({corUpdateDTO: cor});
     return {
         getCor: { // Return the query object.
             key: getCorQueryKey, // Add the key to identify the query.
@@ -38,7 +40,11 @@ export const useCorApi = () => {
         deleteCor: {
             key: deleteCorMutationKey,
             mutation: deleteCor
-        }
+        },
+        updateCor: {
+            key: updateCorMutationKey,
+            mutation: updateCor
+        },
 
      }
 }

@@ -3,6 +3,7 @@ import { useSolicitantiAddDialogController } from "./SolicitantiAddDialog.contro
 import { SolicitantiAddForm } from "@presentation/components/forms/Solicitanti/SolicitantiAddForm";
 import { useIntl } from "react-intl";
 
+
 /**
  * This component wraps the user add form into a modal dialog.
  */
