@@ -50,6 +50,7 @@ export interface CorDTOPagedResponse {
      * @memberof CorDTOPagedResponse
      */
     data: Array<CorDTO>;
+
 }
 
 /**
@@ -61,6 +62,7 @@ export function instanceOfCorDTOPagedResponse(value: object): boolean {
     isInstance = isInstance && "pageSize" in value;
     isInstance = isInstance && "totalCount" in value;
     isInstance = isInstance && "data" in value;
+
 
     return isInstance;
 }

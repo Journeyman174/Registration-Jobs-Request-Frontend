@@ -1,5 +1,5 @@
 import { useTableController } from "../Table.controller";
-import { useCorApi } from "@infrastructure/apis/api-management";
+import { useFeedbackApi } from "@infrastructure/apis/api-management";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { usePaginationController } from "../Pagination.controller";
@@ -7,8 +7,8 @@ import { usePaginationController } from "../Pagination.controller";
 /**
  * This is controller hook manages the table state including the pagination and data retrieval from the backend.
  */
-export const useCorTableController = () => {
-    const { getCors: { key: queryKey,  query }, deleteCor: { key: deleteCorKey, mutation: deleteCor } } = useCorApi(); // Use the API hook.
+export const useFeedbackTableController = () => {
+    const { getFeedbacks: { key: queryKey,  query }, deleteFeedback: { key: deleteFeedbackKey, mutation: deleteFeedback } } = useFeedbackApi(); // Use the API hook.
     const queryClient = useQueryClient(); // Get the query client.
     const { page, pageSize, setPagination } = usePaginationController(); // Get the pagination state.
     const { data, isError, isLoading } = useQuery({
@@ -21,7 +21,7 @@ export const useCorTableController = () => {
     }); // Retrieve the table page from the backend via the query hook.
     const { mutateAsync: deleteMutation } = useMutation({
         mutationKey: [deleteCorKey],
-        mutationFn: deleteCor
+        mutationFn: deleteFeedback
     }); // Use a mutation to remove an entry.
     const remove = useCallback(
         (id: string) => deleteMutation(id).then(() => queryClient.invalidateQueries({ queryKey: [queryKey] })),

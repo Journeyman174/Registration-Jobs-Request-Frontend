@@ -11,6 +11,7 @@ import { AppRoute } from "routes";
 import { CorPage } from "@presentation/pages/CorPage";
 import { StudiiPage } from "@presentation/pages/StudiiPage";
 import { SolicitantiPage } from "@presentation/pages/SolicitantiPage";
+import { FeedbackPage } from "@presentation/pages/FeedbackPage";
 
 export function App() {
   const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
@@ -24,9 +25,10 @@ export function App() {
         <Route path={AppRoute.Login} element={<LoginPage />} />
         {isAdmin && <Route path={AppRoute.Users} element={<UsersPage />} />} {/* If the user doesn't have the right role this route shouldn't be used. */}
         {/*isAdmin && <Route path={AppRoute.UserFiles} element={<UserFilesPage />} />*/}
-        <Route path={AppRoute.Cor} element={<CorPage />} />
-        <Route path={AppRoute.Studii} element={<StudiiPage />} />
-        <Route path={AppRoute.Solicitanti} element={<SolicitantiPage />} />
+        {isAdmin && <Route path={AppRoute.Cor} element={<CorPage />} />}
+        {isAdmin && <Route path={AppRoute.Studii} element={<StudiiPage />} />}
+        {<Route path={AppRoute.Solicitanti} element={<SolicitantiPage />} />}
+        {<Route path={AppRoute.Feedback} element={<FeedbackPage />} />}
       </Routes>
     </AppIntlProvider>
 }

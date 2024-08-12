@@ -13,6 +13,8 @@ import { SolicitantiAddDialog } from "../../Dialogs/SolicitantiAddDialog";
 //import {UserUpdateDialog} from "../../Dialogs/UserUpdateDialog"
 import { GetMeseriiDialog } from "../../Dialogs/GetMeseriiDialog";
 import { GetStudiiDialog } from "../../Dialogs/GetStudiiDialog";
+import { ConfirmProvider } from "material-ui-confirm";
+import { ConfirmDialogSolicitanti } from "../../Dialogs/ConfirmDialogSolicitanti";
 
 /**
  * 
@@ -21,11 +23,18 @@ import { GetStudiiDialog } from "../../Dialogs/GetStudiiDialog";
 
 
 export interface MeseriiProps {
-    meserii:string[]; 
+    meserii:string[];
+    uid:string;
+    sid:string;
+    cnp:string;
+
 }
 
 export interface StudiiProps {
     studii:string[]; 
+    cnp:string; 
+    uid:string; 
+    sid:string;
 }
 const useHeader = (): { key: keyof SolicitantiDTO, name: string }[] => {
     const { formatMessage } = useIntl();
@@ -59,10 +68,10 @@ export const SolicitantiTable = () => {
     const { formatMessage } = useIntl();
     const header = useHeader();
     const orderMap = header.reduce((acc, e, i) => { return { ...acc, [e.key]: i } }, {}) as { [key: string]: number }; // Get the header column order.
-    const { handleChangePage, handleChangePageSize, pagedData, isError, isLoading, tryReload, labelDisplay ,getMeserii,getStudii,removeCorFromsolicitant,removeStudiiFromsolicitant,deleteSolicitanti,CorData,StudiiData} = useSolicitantiTableController(); // Use the controller hook.
+    const { handleChangePage, handleChangePageSize, pagedData, isError, isLoading, tryReload, labelDisplay ,getMeserii,getStudii,removeCorFromsolicitant,removeStudiiFromsolicitant,deleteSolicitanti,CorData,StudiiData,combinedDataCor,combinedDataStudii} = useSolicitantiTableController(); // Use the controller hook.
     const rowValues = getRowValues(pagedData?.data, orderMap); // Get the row values.
-    let  mes:string[] = CorData?.data.map((jobs) => { const job=jobs.meserie; return job})!; 
-    let  stud:string[] = StudiiData?.data.map((studs) => { const stud=studs.denStudii; return stud})!; 
+//    let  mes:string[] = CorData?.data.map((jobs) => { const job=CorData?.data.find(job=>job.id ===jobs.userId); return job?.meserie})!; 
+//    let  stud:string[] = StudiiData?.data.map((studs) => { const stud=studs.denStudii; return stud})!; 
     return <DataLoadingContainer isError={isError} isLoading={isLoading} tryReload={tryReload}> {/* Wrap the table into the loading container because data will be fetched from the backend and is not immediately available.*/}
         <SolicitantiAddDialog /> {/* Add the button to open the Solicitanti add modal. */}
         {!isUndefined(pagedData) && !isUndefined(pagedData?.totalCount) && !isUndefined(pagedData?.page) && !isUndefined(pagedData?.pageSize) &&
@@ -97,19 +106,26 @@ export const SolicitantiTable = () => {
                             {data.map((keyValue, index) => 
                             <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>
                                 {keyValue.value}
-                            </TableCell>)} {/* Add the row values. */}
-                        <TableCell> { /*Add other cells like action buttons. */}
-                            < GetMeseriiDialog  meserii= {mes}/>
-                         </TableCell>
+                            </TableCell>)} {/* Add the row values. {/* CorData?.data.map((jobs) => {jobs?.meserie}) ]*/}
+                        <TableCell> { /*Add other cells like action buttons. {combinedDataCor?.find(x=>x.id == entry.id)?.meserie}/>}*/}
+                        { entry.id !== ownUserId && < GetMeseriiDialog uid = {String(entry.userId)} cnp={entry.cnpSolicitant} sid={entry.id} meserii = {!isUndefined(CorData?.data)  ? CorData?.data.map((jobs) => jobs.meserie):[]}/> }
+                        </TableCell>
+
                          <TableCell> { /*Add other cells like action buttons. */}
-                            < GetStudiiDialog  studii= {stud}/>
+                         {entry.id !== ownUserId &&  < GetStudiiDialog uid = {String(entry.userId)} cnp={entry.cnpSolicitant} sid={entry.id} studii= {!isUndefined(StudiiData?.data)  ? StudiiData?.data.map((stud) => stud.denStudii):[]}/> }
                          </TableCell>
 
-                        <TableCell> {/* Add other cells like action buttons. */}
-                            {entry.id !== ownUserId && <IconButton color="error" onClick={() => deleteSolicitanti(entry.id || '')}>
+{/*                         <TableCell> Add other cells like action buttons. 
+                        {entry.id !== ownUserId && <IconButton color="error" onClick={() => deleteSolicitanti(entry.id || '')}>
                                     <DeleteIcon color="error" fontSize='small' />
                                 </IconButton>}
                         </TableCell>
+*/}
+                        <TableCell>  {/* Add other cells like action buttons. */}
+                            <ConfirmProvider>
+                                <ConfirmDialogSolicitanti pid = {entry.id}/>
+                            </ConfirmProvider>
+                        </TableCell>     
                         </TableRow>)
                     }
                 </TableBody>

@@ -18,6 +18,7 @@ import { useGetStudiiDialogController } from "./GetStudiiDialog.controller";
 import FactoryIcon from '@mui/icons-material/Factory';
 import SchoolIcon from '@mui/icons-material/School';
 import IconButton  from "@mui/material";
+import { StudiiAddFormSol } from '@presentation/components/forms/Studii/StudiiAddFormSol';
 
 //const meserii= ['username@gmail.com', 'user02@gmail.com'];
 export interface SimpleDialogProps {
@@ -25,49 +26,69 @@ export interface SimpleDialogProps {
   selectedValue: string;
   onClose: (value: string , meserie: string[]) => void;
   studii: string[];
+  cnp:string; 
+  uid:string; 
+  sid:string;
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
   const { onClose, selectedValue, open, studii} = props;
+  const [showForm, setShowForm] = React.useState(false); // State to control form visibility
 
   const handleClose = () => {
-    onClose(selectedValue,[]);
+    onClose(selectedValue, studii);
   };
 
   const handleListItemClick = (value: string) => {
-    onClose(value,[]);
+    onClose(value, studii);
+  };
+
+  const handleAddItemClick = () => {
+    setShowForm(true); // Show the form when the button is clicked
+  };
+
+  const closeForm = () => {
+    setShowForm(false); // Hide the form after submission
+    onClose(selectedValue, studii); // Close the dialog as well
   };
 
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Studii Solicitant</DialogTitle>
       <List sx={{ pt: 0 }}>
-        {props.studii.map((stud:string) => (
-          <ListItem disableGutters key={stud}>
-            <ListItemButton onClick={() => handleListItemClick(stud)}>
+        {props.studii.map((job: string) => (
+          <ListItem disableGutters key={job}>
+            <ListItemButton onClick={() => handleListItemClick(job)}>
               <ListItemAvatar>
                 <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
                   <PersonIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={stud} />
+              <ListItemText primary={job} />
             </ListItemButton>
           </ListItem>
         ))}
         <ListItem disableGutters>
-          <ListItemButton
-            autoFocus
-            onClick={() => handleListItemClick('addAccount')}
-          >
+          <ListItemButton autoFocus onClick={handleAddItemClick}>
             <ListItemAvatar>
               <Avatar>
                 <AddIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary="Add Studies" />
+            <ListItemText primary="Adauga Studii" />
           </ListItemButton>
         </ListItem>
       </List>
+
+      {/* Conditionally render the CorAddFormSol form */}
+      {showForm && (
+        <StudiiAddFormSol
+          onSubmit={closeForm} // Pass the close function to handle form submission
+          uid={props.uid}
+          sid={props.sid}
+          cnp={props.cnp}
+        />
+      )}
     </Dialog>
   );
 }
@@ -96,14 +117,18 @@ export  function GetStudiiDialog (props:StudiiProps) {
       </Typography>
       <br />
 
-      <Button color="error" onClick={handleClickOpen} >
+      <Button variant="outlined" onClick={handleClickOpen} >
           Studii
       </Button>
       <SimpleDialog
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose} 
-        studii={studii} />
+        studii={studii}
+        uid={props.uid}
+        sid={props.sid}
+        cnp={props.cnp}
+        />
     </div>
   );
 }

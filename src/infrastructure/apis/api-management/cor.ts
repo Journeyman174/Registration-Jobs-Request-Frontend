@@ -1,5 +1,5 @@
 import { useAppSelector } from "@application/store";
-import {CorApi,CorDTOPagedResponse,CorAddDTO, CorUpdateDTO} from "../client"
+import {CorApi,CorDTOPagedResponse,CorAddDTO, CorUpdateDTO, ApiCorGetPageGetRequest} from "../client"
 import { getAuthenticationConfiguration } from "@infrastructure/utils/userUtils";
 import { Mutation } from "@tanstack/react-query";
 
@@ -20,7 +20,7 @@ export const useCorApi = () => {
     const config = getAuthenticationConfiguration(token); // Use the token to configure the authentication header.
 
     const getCor = (id:string)=> new CorApi(config).apiCorGetByIdIdGet({id});
-    const getCors = (page:CorDTOPagedResponse)=>new CorApi(config).apiCorGetPageGet(page);
+    const getCors = (page:ApiCorGetPageGetRequest)=>new CorApi(config).apiCorGetPageGet(page);
     const addCor = (cor:CorAddDTO)=>new CorApi(config).apiCorAddPost({corAddDTO:cor});
     const deleteCor = (id: string) => new CorApi(config).apiCorDeleteIdDelete({id});
     const updateCor =   (cor: CorUpdateDTO) => new CorApi(config).apiCorUpdatePut({corUpdateDTO: cor});

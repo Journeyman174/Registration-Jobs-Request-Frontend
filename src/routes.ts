@@ -8,5 +8,6 @@ export enum AppRoute {
     UserFiles = "/user-files",
     Cor = "/cor",
     Studii = "/studii",
-    Solicitanti = "/solicitanti"
+    Solicitanti = "/solicitanti",
+    Feedback = "/feedback"
 }

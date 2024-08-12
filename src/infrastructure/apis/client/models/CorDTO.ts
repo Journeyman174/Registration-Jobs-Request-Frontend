@@ -19,6 +19,7 @@ import { exists, mapValues } from '../runtime';
  * @interface CorDTO
  */
 export interface CorDTO {
+//    idCor: any;
     /**
      * 
      * @type {string}

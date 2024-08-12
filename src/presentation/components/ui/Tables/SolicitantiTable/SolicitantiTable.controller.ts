@@ -91,7 +91,18 @@ const { mutateAsync: removeStudiimutation } = useMutation({
         queryKey: [queryKey3, page, pageSize],
         queryFn: () => GetUsers({ page, pageSize })
     }); // Retrieve the table page from the backend via the query hook.
+    const combinedDataCor = data?.response?.data?.map(
+        x=> {
+            const y = CorData?.response?.data?.find(y=>y.id === x.userId);
 
+            return {...x,meserie:y?String(y.meserie):""};
+        } )
+        const combinedDataStudii = data?.response?.data?.map(
+            x=> {
+                const y = StudiiData?.response?.data?.find(y=>y.id === x.userId);
+    
+                return {...x,studii:y?String(y.denStudii):""};
+            } )
 
     return { // Return the controller state and actions.
         ...tableController,
@@ -106,5 +117,7 @@ const { mutateAsync: removeStudiimutation } = useMutation({
         deleteSolicitanti,
         CorData:CorData?.response,
         StudiiData:StudiiData?.response,
+        combinedDataCor,
+        combinedDataStudii
     };
     }
