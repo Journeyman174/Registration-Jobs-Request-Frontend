@@ -50,7 +50,6 @@ export interface UserDTO {
      * @memberof UserDTO
      */
     role: UserRoleEnum;
-    
 }
 
 /**

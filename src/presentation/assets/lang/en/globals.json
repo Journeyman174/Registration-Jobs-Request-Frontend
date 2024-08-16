@@ -30,6 +30,16 @@
     "globals.studii" : "Studies",
     "globals.cor" : "COR",  
     "globals.solicitanti" : "Job applicant",
+    "globals.feedback" : "Your opinion ",
+    "globals.score" : "Note",
+    "globals.anonimous" : "Anonimous",
+    "globals.quality" : "Your opinion ",
+    "globals.content"  : "Content ",
+    "globals.Foartebuna" : "Very Good",
+    "globals.Buna" : "Good",
+    "globals.Satisfacatoare" : "Satisfactory",
+    "globals.Nesatisfacatoare" : "Dissatisfied",    
+
     "globals.placeholders.textInput": "Please enter {fieldName}",
     "globals.placeholders.selectInput": "Please select the {fieldName}",
     "globals.validations.requiredField": "{fieldName} is a required field!"

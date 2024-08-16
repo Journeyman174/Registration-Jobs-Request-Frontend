@@ -8,7 +8,7 @@ import { usePaginationController } from "../Pagination.controller";
  * This is controller hook manages the table state including the pagination and data retrieval from the backend.
  */
 export const useFeedbackTableController = () => {
-    const { getFeedbacks: { key: queryKey,  query }, deleteFeedback: { key: deleteFeedbackKey, mutation: deleteFeedback } } = useFeedbackApi(); // Use the API hook.
+    const { getFeedbacks: { key: queryKey,  query } } = useFeedbackApi(); // Use the API hook.
     const queryClient = useQueryClient(); // Get the query client.
     const { page, pageSize, setPagination } = usePaginationController(); // Get the pagination state.
     const { data, isError, isLoading } = useQuery({
@@ -19,13 +19,6 @@ export const useFeedbackTableController = () => {
  //           data: []
         })
     }); // Retrieve the table page from the backend via the query hook.
-    const { mutateAsync: deleteMutation } = useMutation({
-        mutationKey: [deleteCorKey],
-        mutationFn: deleteFeedback
-    }); // Use a mutation to remove an entry.
-    const remove = useCallback(
-        (id: string) => deleteMutation(id).then(() => queryClient.invalidateQueries({ queryKey: [queryKey] })),
-        [queryClient, deleteMutation, queryKey]); // Create the callback to remove an entry.
 
     const tryReload = useCallback(
         () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
@@ -39,6 +32,6 @@ export const useFeedbackTableController = () => {
         pagedData: data?.response,
         isError,
         isLoading,
-        remove
+    
     };
 }

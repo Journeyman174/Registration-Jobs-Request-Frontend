@@ -104,17 +104,7 @@ export const Navbar = () => {
                   </Link>
                 </Button>
               </Grid>
-            </Grid>}
 
-            {isSolicitant && <Grid // If the user is logged in and it is an admin they can have new menu items shown.
-              container
-              item
-              direction="row"
-              xs={12}
-              alignItems="center"
-              wrap="nowrap"
-              columnSpacing={15}
-            >
               <Grid container item direction="column" xs={1}>
                 <Button color="inherit">
                   <Link style={{ color: 'white' }} to={AppRoute.Feedback}>
@@ -122,7 +112,9 @@ export const Navbar = () => {
                   </Link>
                 </Button>
               </Grid>
+
             </Grid>}
+
 
           </Grid>
           <Grid container item direction="column" xs={1}>

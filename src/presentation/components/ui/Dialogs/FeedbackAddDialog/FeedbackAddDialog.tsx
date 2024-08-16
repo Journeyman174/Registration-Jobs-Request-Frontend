@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useFeedbackAddDialogController } from "./FeedbackAddDialog.controller";
-import { FeedBackAddForm } from "@presentation/components/forms/Feedback/FeedBackAddForm";
+import { FeedbackAddForm } from "@presentation/components/forms/Feedback/FeedbackAddForm";
 import { useIntl } from "react-intl";
 
 /**

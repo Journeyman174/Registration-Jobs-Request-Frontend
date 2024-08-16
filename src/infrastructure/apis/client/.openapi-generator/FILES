@@ -4,6 +4,7 @@ apis/CnpStudiiApi.ts
 apis/CorApi.ts
 apis/DosarApi.ts
 apis/DosarRepartitiiApi.ts
+apis/FeedbackApi.ts
 apis/OlmApi.ts
 apis/RepartitieApi.ts
 apis/SolicitantiApi.ts
@@ -42,6 +43,10 @@ models/DosarStareEnum.ts
 models/DosarUpdateDTO.ts
 models/ErrorCodes.ts
 models/ErrorMessage.ts
+models/FeedbackDTO.ts
+models/FeedbackDTOPagedResponse.ts
+models/FeedbackDTOPagedResponseRequestResponse.ts
+models/FeedbackEnum.ts
 models/HttpStatusCode.ts
 models/LoginDTO.ts
 models/LoginResponseDTO.ts

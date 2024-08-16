@@ -1,13 +1,13 @@
 import { useIntl } from "react-intl";
 import { isUndefined } from "lodash";
-import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
+import { Card, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { DataLoadingContainer } from "../../LoadingDisplay";
 import { useFeedbackTableController } from "./FeedbackTable.controller";
 import { FeedbackDTO, UserDTO } from "@infrastructure/apis/client";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppSelector } from "@application/store";
 import { FeedbackAddDialog } from "../../Dialogs/FeedbackAddDialog";
-import {FeedbackUpdateDialog} from "../../Dialogs/FeedbackUpdateDialog"
+
 
 import { ConfirmProvider } from "material-ui-confirm";
 import { ConfirmDialog } from "../../Dialogs/ConfirmDialog";
@@ -22,8 +22,8 @@ const useHeader = (): { key: keyof FeedbackDTO, name: string }[] => {
     return [
         //{ key: "date", name: formatMessage({ id: "globals.data" }) },
         { key: "score", name: formatMessage({ id: "globals.score" }) },
-        { key: "anonimus", name: formatMessage({ id: "globals.anonimus" }) },
-        { key: "feedbackEnum", name: formatMessage({ id: "globals.feedback" }) },
+        { key: "anonimous", name: formatMessage({ id: "globals.anonimous" }) },
+        { key: "quality", name: formatMessage({ id: "globals.quality" }) },
         { key: "content", name: formatMessage({ id: "globals.content" }) },
     ]
 };
@@ -48,7 +48,7 @@ export const FeedbackTable = () => {
     const { formatMessage } = useIntl();
     const header = useHeader();
     const orderMap = header.reduce((acc, e, i) => { return { ...acc, [e.key]: i } }, {}) as { [key: string]: number }; // Get the header column order.
-    const { handleChangePage, handleChangePageSize, pagedData, isError, isLoading, tryReload, labelDisplay , remove} = useCorTableController(); // Use the controller hook.
+    const { handleChangePage, handleChangePageSize, pagedData, isError, isLoading, tryReload, labelDisplay } = useFeedbackTableController(); // Use the controller hook.
     const rowValues = getRowValues(pagedData?.data, orderMap); // Get the row values.
 
 
@@ -81,22 +81,7 @@ export const FeedbackTable = () => {
                     {
                         rowValues?.map(({ data, entry }, rowIndex) => <TableRow key={`row_${rowIndex + 1}`}>
                             {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)} {/* Add the row values. */}
-                        <TableCell> {/* Add other cells like action buttons. */}
-                                <FeedbackUpdateDialog pid = {String(entry.id)}/>
-                        </TableCell>
-
-{/*                         <TableCell> Add other cells like action buttons. 
-                                {entry.id !== ownUserId && <IconButton color="error" onClick={() => remove(entry.id || '')}>
-                                    <DeleteIcon color="error" fontSize='small' />
-                                </IconButton>}
-                        </TableCell>
-                        */}
-                        <TableCell> {/* Add other cells like action buttons. */}
-                            <ConfirmProvider>
-                                <ConfirmDialogFeedback pid = {entry.id}/>
-                            </ConfirmProvider>
-                        </TableCell>                        
-                    </TableRow>)
+                   </TableRow>)
                     }
                 </TableBody>
             </Table>

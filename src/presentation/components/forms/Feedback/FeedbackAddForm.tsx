@@ -8,16 +8,21 @@ import {
     Stack,
     OutlinedInput,
     Select,
-    MenuItem
+    MenuItem,
     Radio,
     RadioGroup,
     Checkbox,
 
 } from "@mui/material";
 import { FormattedMessage, useIntl } from "react-intl";
-import { useCorAddFormController } from "./CorAddForm.controller";
+import { useFeedbackAddFormController } from "./FeedbackAddForm.controller";
 import { isEmpty, isUndefined } from "lodash";
 import { FeedbackEnum } from "@infrastructure/apis/client";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import React from "react";
+//import { Score } from "@mui/icons-material";
+
+
 
 /**
  * Here we declare the user add form component.
@@ -27,36 +32,19 @@ export const FeedbackAddForm = (props: { onSubmit?: () => void }) => {
     const { formatMessage } = useIntl();
     const { state, actions, computed } = useFeedbackAddFormController(props.onSubmit); // Use the controller.
 
+/*    const [value,setSelectedRadioBtn] =React.useState(5);
+//    const handleRadioClick = (e:React.ChangeEvent<HTMLInputElement>):void => {
+//        setSelectedRadioBtn(parseInt(e.currentTarget.value));
+        console.log(e.target.value);
+    }
+*/
     return <form onSubmit={actions.handleSubmit(actions.submit)}> {/* Wrap your form into a form tag and use the handle submit callback to validate the form and call the data submission. */}
         <Stack spacing={4} style={{ width: "100%" }}>
             <div>
                 <Grid container item direction="row" xs={12} columnSpacing={4}>
-                   <Grid container item direction="column" xs={6} md={6}>
-                        <FormControl
-                            fullWidth
-                            error={!isUndefined(state.errors.score)}
-                        > {/* Wrap the input into a form control and use the errors to show the input invalid if needed. */}
-                            <FormLabel required>
-                                <FormattedMessage id="globals.score" />
-                            </FormLabel> {/* Add a form label to indicate what the input means. */}
-                            <OutlinedInput
-                                {...actions.register("score")} // Bind the form variable to the UI input.
-                                placeholder={formatMessage(
-                                    { id: "globals.placeholders.textInput" },
-                                    {
-                                        fieldName: formatMessage({
-                                            id: "globals.name",
-                                        }),
-                                    })}
-                                autoComplete="none"
-                            /> {/* Add a input like a textbox shown here. */}
-                            <FormHelperText
-                                hidden={isUndefined(state.errors.score)}
-                            >
-                                {state.errors.score?.message}
-                            </FormHelperText> {/* Add a helper text that is shown then the input has a invalid value. */}
-                        </FormControl>
-                    </Grid>
+
+
+
 
 			 {/* Select for Quality */}
                     <Grid container item direction="column" xs={6} md={6}>
@@ -82,11 +70,17 @@ export const FeedbackAddForm = (props: { onSubmit?: () => void }) => {
                                         })}
                                     </span>
                                 </MenuItem>
-                                <MenuItem value={FeedbackEnum.Buna}>
-                                    <FormattedMessage id="globals.buna" />
+                                <MenuItem value={FeedbackEnum.FoarteBuna}>
+                                    <FormattedMessage id="globals.Foartebuna" />
                                 </MenuItem>
                                 <MenuItem value={FeedbackEnum.Buna}>
-                                    <FormattedMessage id="globals.buna" />
+                                    <FormattedMessage id="globals.Buna" />
+                                </MenuItem>
+                                <MenuItem value={FeedbackEnum.Satificatoare}>
+                                    <FormattedMessage id="globals.Satisfacatoare" />
+                                </MenuItem>
+                                <MenuItem value={FeedbackEnum.Nesatificatoare}>
+                                    <FormattedMessage id="globals.Nesatisfacatoare" />
                                 </MenuItem>
                             </Select>
                             <FormHelperText
@@ -94,74 +88,115 @@ export const FeedbackAddForm = (props: { onSubmit?: () => void }) => {
                             >
                                 {state.errors.quality?.message}
                             </FormHelperText>
+                            <FormHelperText>
+                                    Selected Quality: {actions.watch("quality")}
+                            </FormHelperText>    
+                        </FormControl>
+                    </Grid>
+
+
+ 
+
+                    {/* Checkbox for Anonimous */}
+                    <Grid container item direction="column" xs={6} md={6}>
+                        <FormControl
+                            fullWidth
+                            error={!isUndefined(state.errors.anonimous)}
+                        >
+                            <FormLabel required>
+                                <FormattedMessage id="globals.anonimous" />
+                            </FormLabel>
+                            <Checkbox
+                             {...actions.register("anonimous")}
+//                             onChange={actions.watch("anonimous")}  // Bind the checked state to the form state
+                             onChange={actions.selectAnonimous}    // Handle the change event
+                                />
+                            <FormHelperText
+                                hidden={isUndefined(state.errors.anonimous)}
+                            >
+                                {state.errors.anonimous?.message}
+                            </FormHelperText>
+                            {/* Display the selected value 
+                        <Grid container item direction="column" xs={6} md={6}>
+                            <div>
+                                Anonimous Selected Value:
+                                {String(actions.watch("anonimous"))} {/* Display the current value as "true" or "false" 
+                            </div>
+                        </Grid>
+                        */}
+                            <FormHelperText>
+                                Anonimous Selected Value:
+                                {String(actions.watch("anonimous"))} {/* Display the current value as "true" or "false" */}
+                            </FormHelperText>                        
                         </FormControl>
                     </Grid>
 
 
 
-            {/* Radio buttons for Score */}
-            <FormControl fullWidth margin="normal">
-                <FormLabel>Score</FormLabel>
-                <Controller
-                    name="score"
-                    control={control}
-                    render={({ field }) => (
-                        <RadioGroup {...field} row>
-                            <FormControlLabel value={1} control={<Radio />} label="1" />
-                            <FormControlLabel value={2} control={<Radio />} label="2" />
-                            <FormControlLabel value={3} control={<Radio />} label="3" />
-                            <FormControlLabel value={4} control={<Radio />} label="4" />
-                            <FormControlLabel value={5} control={<Radio />} label="5" />
-                        </RadioGroup>
-                    )}
-                />
-            </FormControl>
-
-
-            {/* Checkbox for Anonimous */}
-            <FormControlLabel
-                control={
-                    <Controller
-                        name="anonimous"
-                        control={control}
-                        render={({ field }) => <Checkbox {...field} />}
-                    />
-                }
-                label="Submit anonymously"
-            />
-
-
-
-
-
-
-                    <Grid container item direction="column" xs={6} md={6}>
+                    <Grid container item direction="column" xs={6} md={12}>
                         <FormControl
                             fullWidth
-                            error={!isUndefined(state.errors.meserie)}
+                            error={!isUndefined(state.errors.content)}
                         >
                             <FormLabel required>
-                                <FormattedMessage id="globals.meserie" />
+                                <FormattedMessage id="globals.content" />
                             </FormLabel>
                             <OutlinedInput
-                                {...actions.register("meserie")}
+                                {...actions.register("content")}
                                 placeholder={formatMessage(
                                     { id: "globals.placeholders.textInput" },
                                     {
                                         fieldName: formatMessage({
-                                            id: "globals.meserie",
+                                            id: "globals.content",
                                         }),
                                     })}
                                 autoComplete="none"
                             />
                             <FormHelperText
-                                hidden={isUndefined(state.errors.meserie)}
+                                hidden={isUndefined(state.errors.content)}
                             >
-                                {state.errors.meserie?.message}
+                                {state.errors.content?.message}
                             </FormHelperText>
                         </FormControl>
                     </Grid>
                 </Grid>
+
+           {/* Radio buttons for Score */}
+           <Grid container item direction="column" xs={6} md={8}>
+                        <FormControl
+                            fullWidth
+                            error={!isUndefined(state.errors.score)}
+                        > {/* Wrap the input into a form control and use the errors to show the input invalid if needed. */}
+                        <FormLabel required>
+                                <FormattedMessage id="globals.score" />
+                        </FormLabel> {/* Add a form label to indicate what the input means. */}
+                        <RadioGroup 
+//                            {...actions.register("score")}
+//                            value={value}
+                            value={actions.watch("score")}                           
+                             onChange={actions.selectScore} // Selects may need a listener to for the variable change. 
+//                            onChange={handleRadioClick}
+
+                            defaultValue={actions.watch("score")}  
+                            row> {/*} Bind the form variable to the UI input. */}
+                            <FormControlLabel value={1} {...actions.register("score")} control={<Radio />}  label="1" /> 
+                            <FormControlLabel value={2} {...actions.register("score")} control={<Radio />}  label="2" />
+                            <FormControlLabel value={3} {...actions.register("score")} control={<Radio />}  label="3" />
+                            <FormControlLabel value={4} {...actions.register("score")} control={<Radio />}  label="4" />
+                            <FormControlLabel value={5} {...actions.register("score")} control={<Radio />}  label="5" />
+                        </RadioGroup>
+
+                        <FormHelperText
+                                hidden={isUndefined(state.errors.score)}
+                            >
+                                {state.errors.score?.message}
+                        </FormHelperText> {/* Add a helper text that is shown then the input has a invalid value. */}
+                                {/* Display the selected score */}
+                                <FormHelperText>
+                                    Selected Score: {actions.watch("score")}
+                                </FormHelperText>
+                        </FormControl>
+                    </Grid>                
                 <Grid container item direction="row" xs={12} className="padding-top-sm">
                     <Grid container item direction="column" xs={12} md={7}></Grid>
                     <Grid container item direction="column" xs={5}>

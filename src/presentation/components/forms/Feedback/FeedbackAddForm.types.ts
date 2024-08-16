@@ -1,4 +1,4 @@
-import { UserRoleEnum } from "@infrastructure/apis/client";
+import { FeedbackEnum } from "@infrastructure/apis/client";
 import { FormController } from "../FormController";
 import {
     UseFormHandleSubmit,
@@ -9,25 +9,30 @@ import {
 } from "react-hook-form";
 import { SelectChangeEvent } from "@mui/material";
 
-export type CorAddFormModel = {
-    codCor: string;
-    meserie: string;
+
+export type FeedbackAddFormModel = {
+    score: number;
+    quality: FeedbackEnum;
+    anonimous: boolean;
+    content:string;
 };
 
-export type CorAddFormState = {
-    errors: FieldErrorsImpl<DeepRequired<CorAddFormModel>>;
+export type FeedbackAddFormState = {
+    errors: FieldErrorsImpl<DeepRequired<FeedbackAddFormModel>>;
 };
 
-export type CorAddFormActions = {
-    register: UseFormRegister<CorAddFormModel>;
-    watch: UseFormWatch<CorAddFormModel>;
-    handleSubmit: UseFormHandleSubmit<CorAddFormModel>;
-    submit: (body: CorAddFormModel) => void;
-
+export type FeedbackAddFormActions = {
+    register: UseFormRegister<FeedbackAddFormModel>;
+    watch: UseFormWatch<FeedbackAddFormModel>;
+    handleSubmit: UseFormHandleSubmit<FeedbackAddFormModel>;
+    submit: (body: FeedbackAddFormModel) => void;
+    selectQuality: (value: SelectChangeEvent<FeedbackEnum>) => void;
+    selectScore: (value: React.ChangeEvent<HTMLInputElement>) => void;
+    selectAnonimous: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
-export type CorAddFormComputed = {
-    defaultValues: CorAddFormModel,
+export type FeedbackAddFormComputed = {
+    defaultValues: FeedbackAddFormModel,
     isSubmitting: boolean
 };
 
-export type CorAddFormController = FormController<CorAddFormState, CorAddFormActions, CorAddFormComputed>;
+export type FeedbackAddFormController = FormController<FeedbackAddFormState, FeedbackAddFormActions, FeedbackAddFormComputed>;

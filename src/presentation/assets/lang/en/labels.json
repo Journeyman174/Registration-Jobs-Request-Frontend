@@ -9,5 +9,6 @@
     "labels.addCor": "Add COR jobs",
     "labels.addStudii": "Add studies",
     "labels.addUserFile": "Add file",
-    "labels.addSolicitanti": "Add job applicant"
+    "labels.addSolicitanti": "Add job applicant",
+    "labels.addFeedback" :"Add your opinion"
 }

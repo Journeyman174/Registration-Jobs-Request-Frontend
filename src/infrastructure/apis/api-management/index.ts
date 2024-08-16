@@ -6,3 +6,4 @@ export * from "./studii";
 export * from "./solicitanti";
 export * from "./pregatire";
 export * from "./calificari";
+export * from "./feedback";

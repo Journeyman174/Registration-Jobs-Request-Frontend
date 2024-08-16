@@ -13,49 +13,49 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { CorDTO } from './CorDTO';
+import type { FeedbackDTO } from './FeedbackDTO';
 import {
-    CorDTOFromJSON,
-    CorDTOFromJSONTyped,
-    CorDTOToJSON,
-} from './CorDTO';
+    FeedbackDTOFromJSON,
+    FeedbackDTOFromJSONTyped,
+    FeedbackDTOToJSON,
+} from './FeedbackDTO';
 
 /**
  * 
  * @export
- * @interface CorDTOPagedResponse
+ * @interface FeedbackDTOPagedResponse
  */
-export interface CorDTOPagedResponse {
+export interface FeedbackDTOPagedResponse {
     /**
      * 
      * @type {number}
-     * @memberof CorDTOPagedResponse
+     * @memberof FeedbackDTOPagedResponse
      */
     page: number;
     /**
      * 
      * @type {number}
-     * @memberof CorDTOPagedResponse
+     * @memberof FeedbackDTOPagedResponse
      */
     pageSize: number;
     /**
      * 
      * @type {number}
-     * @memberof CorDTOPagedResponse
+     * @memberof FeedbackDTOPagedResponse
      */
     totalCount: number;
     /**
      * 
-     * @type {Array<CorDTO>}
-     * @memberof CorDTOPagedResponse
+     * @type {Array<FeedbackDTO>}
+     * @memberof FeedbackDTOPagedResponse
      */
-    data: Array<CorDTO>;
+    data: Array<FeedbackDTO>;
 }
 
 /**
- * Check if a given object implements the CorDTOPagedResponse interface.
+ * Check if a given object implements the FeedbackDTOPagedResponse interface.
  */
-export function instanceOfCorDTOPagedResponse(value: object): boolean {
+export function instanceOfFeedbackDTOPagedResponse(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "page" in value;
     isInstance = isInstance && "pageSize" in value;
@@ -65,11 +65,11 @@ export function instanceOfCorDTOPagedResponse(value: object): boolean {
     return isInstance;
 }
 
-export function CorDTOPagedResponseFromJSON(json: any): CorDTOPagedResponse {
-    return CorDTOPagedResponseFromJSONTyped(json, false);
+export function FeedbackDTOPagedResponseFromJSON(json: any): FeedbackDTOPagedResponse {
+    return FeedbackDTOPagedResponseFromJSONTyped(json, false);
 }
 
-export function CorDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CorDTOPagedResponse {
+export function FeedbackDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): FeedbackDTOPagedResponse {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -78,11 +78,11 @@ export function CorDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator:
         'page': json['page'],
         'pageSize': json['pageSize'],
         'totalCount': json['totalCount'],
-        'data': ((json['data'] as Array<any>).map(CorDTOFromJSON)),
+        'data': ((json['data'] as Array<any>).map(FeedbackDTOFromJSON)),
     };
 }
 
-export function CorDTOPagedResponseToJSON(value?: CorDTOPagedResponse | null): any {
+export function FeedbackDTOPagedResponseToJSON(value?: FeedbackDTOPagedResponse | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -94,7 +94,7 @@ export function CorDTOPagedResponseToJSON(value?: CorDTOPagedResponse | null): a
         'page': value.page,
         'pageSize': value.pageSize,
         'totalCount': value.totalCount,
-        'data': ((value.data as Array<any>).map(CorDTOToJSON)),
+        'data': ((value.data as Array<any>).map(FeedbackDTOToJSON)),
     };
 }
 
